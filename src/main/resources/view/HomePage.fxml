@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainAnchor" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.finalproject.controller.HomePageController">
+    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="567.0" stroke="#330a27" strokeType="INSIDE" strokeWidth="3.0" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="567.0" layoutY="3.0" stroke="WHITE" strokeType="INSIDE" width="24.0" />
+      <Line endX="-56.0" layoutX="100.0" layoutY="1.0" startX="-100.0" stroke="#330a27" strokeWidth="4.0" />
+      <Line endX="-56.0" layoutX="100.0" layoutY="565.0" startX="-100.0" stroke="#330a27" strokeWidth="4.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="57.0" layoutY="507.0" stroke="WHITE" strokeType="INSIDE" width="56.0" />
+      <ImageView fitHeight="30.0" fitWidth="33.0" layoutX="22.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-driver-50.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="60.0" layoutY="18.0" text="LEARN DRIVE">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="8.0" layoutY="50.0" text="MAIN MENU" textFill="#7e6174">
+         <font>
+            <Font name="Dubai Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="19.0" layoutY="75.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="19.0" layoutY="109.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="19.0" layoutY="143.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="19.0" layoutY="177.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="19.0" layoutY="211.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="19.0" layoutY="245.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="19.0" layoutY="279.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="19.0" layoutY="313.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="19.0" layoutY="347.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="21.0" layoutY="381.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="8.0" layoutY="449.0" text="SUPPORT" textFill="#7e6174">
+         <font>
+            <Font name="Dubai Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="21.0" layoutY="474.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="22.0" layoutY="508.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+      <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="28.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-dashboard-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="28.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-students-50%20(1).png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="27.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-trainer-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="28.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-booking-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="28.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-payments-48.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="28.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-course-assign-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="28.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-classroom-48.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="28.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-tools-30%20(1).png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="28.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-vehicle-50%20(1).png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="28.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-salary-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="28.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-setting-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="28.0" layoutY="514.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-log-out-24.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnDashboard" layoutX="70.0" layoutY="73.0" mnemonicParsing="false" onAction="#dashboardOnAction" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Dashboard" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnStudents" layoutX="64.0" layoutY="107.0" mnemonicParsing="false" onAction="#studentsOnAction" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Students" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnInstructors" layoutX="70.0" layoutY="141.0" mnemonicParsing="false" onAction="#instructorsOnAction" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Instructors" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnBooking" layoutX="62.0" layoutY="175.0" mnemonicParsing="false" onAction="#bookingOnAction" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Booking" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnPayment" layoutX="66.0" layoutY="209.0" mnemonicParsing="false" onAction="#paymentOnAction" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Payments" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnCourses" layoutX="61.0" layoutY="243.0" mnemonicParsing="false" onAction="#coursesOnAction" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Courses" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnLessons" layoutX="61.0" layoutY="277.0" mnemonicParsing="false" onAction="#lessonsOnAction" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Lessons" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnMaintainers" layoutX="73.0" layoutY="311.0" mnemonicParsing="false" onAction="#maintainersOnAction" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Maintainers" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnVehicles" layoutX="63.0" layoutY="345.0" mnemonicParsing="false" onAction="#vehicleOnAction" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Vehicles" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnSalary" layoutX="58.0" layoutY="380.0" mnemonicParsing="false" onAction="#salaryOnAction" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Salary" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="61.0" layoutY="472.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Setting" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnLogout" layoutX="60.0" layoutY="505.0" mnemonicParsing="false" onAction="#logoutOnAction" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Logout" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Button>
+      <Line endX="581.0" layoutX="316.0" layoutY="53.0" startX="-100.0" stroke="#330a27" strokeWidth="2.0" />
+      <AnchorPane fx:id="loardAnchor" layoutX="212.0" layoutY="61.0" prefHeight="544.0" prefWidth="694.0" />
+      <Label layoutX="223.0" layoutY="2.0" text="DASHBOARD">
+         <font>
+            <Font name="Dubai Bold" size="26.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="47.0" fitWidth="52.0" layoutX="846.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/car.PNG" />
+         </image>
+      </ImageView>
+      <Label layoutX="727.0" layoutY="4.0" text="Iresh Chathuranga" textFill="#330a27">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="805.0" layoutY="24.0" text="ADMIN" textFill="#7e6174">
+         <font>
+            <Font name="Dubai Bold" size="12.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

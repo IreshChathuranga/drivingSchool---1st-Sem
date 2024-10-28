@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="543.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.finalproject.controller.VehicleController">
+   <children>
+      <TextField layoutX="24.0" layoutY="33.0" prefHeight="29.0" prefWidth="295.0" promptText="Enter ID" style="-fx-background-color: #7E6174; -fx-background-radius: 40;">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="372.0" layoutY="33.0" prefHeight="29.0" prefWidth="295.0" promptText="Enter Type" style="-fx-background-color: #7E6174; -fx-background-radius: 40;">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="27.0" layoutY="91.0" prefHeight="29.0" prefWidth="295.0" promptText="Enter Amount" style="-fx-background-color: #7E6174; -fx-background-radius: 40;">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </TextField>
+      <Label layoutX="49.0" layoutY="15.0" text="Vehicle ID" textFill="#330a27">
+         <font>
+            <Font name="Ebrima Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="401.0" layoutY="15.0" text="Vehicle Type" textFill="#330a27">
+         <font>
+            <Font name="Ebrima Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="30.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-amphibious-vehicle-30.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="381.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-automotive-30.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="49.0" layoutY="72.0" text="Lesson fee" textFill="#330a27">
+         <font>
+            <Font name="Ebrima Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="31.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-amount-50%20(1).png" />
+         </image>
+      </ImageView>
+      <Group layoutX="32.0" layoutY="102.0" />
+      <Group layoutX="570.0" layoutY="112.0" />
+      <Group layoutX="14.0" layoutY="130.0">
+         <children>
+            <Group />
+         </children>
+      </Group>
+      <Group layoutX="30.0" layoutY="128.0">
+         <children>
+            <Group layoutX="143.0" layoutY="6.0" />
+            <Group layoutX="502.0" />
+            <Group layoutX="248.0" layoutY="-1.0" />
+         </children>
+      </Group>
+      <ImageView fitHeight="369.0" fitWidth="607.0" layoutX="32.0" layoutY="175.0" opacity="0.33" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/road.jpeg" />
+         </image>
+      </ImageView>
+      <Button layoutX="269.0" layoutY="162.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="151.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Save" textFill="WHITE">
+         <font>
+            <Font name="Dubai Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="427.0" layoutY="162.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="117.0" style="-fx-background-color: #330a27; -fx-background-radius: 30;" text="Update" textFill="WHITE">
+         <font>
+            <Font name="Dubai Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="548.0" layoutY="162.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="117.0" style="-fx-background-color: #643554; -fx-background-radius: 30;" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="Dubai Bold" size="16.0" />
+         </font>
+      </Button>
+      <Group layoutX="376.0" layoutY="312.0" />
+      <TableView layoutX="32.0" layoutY="242.0" prefHeight="142.0" prefWidth="635.0" style="-fx-background-color: #330a27;">
+        <columns>
+          <TableColumn prefWidth="146.0" text="Vehicle ID" />
+          <TableColumn prefWidth="145.0" text="Vehicle Type" />
+            <TableColumn prefWidth="171.0" text="Lesson fee" />
+            <TableColumn minWidth="6.0" prefWidth="172.0" text="Admin ID" />
+        </columns>
+      </TableView>
+      <TextField layoutX="372.0" layoutY="92.0" prefHeight="29.0" prefWidth="295.0" promptText="Enter Phone Number" style="-fx-background-color: #7E6174; -fx-background-radius: 40;">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </TextField>
+      <Label layoutX="402.0" layoutY="73.0" text="Admin ID" textFill="#330a27">
+         <font>
+            <Font name="Ebrima Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="382.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icons8-id-50%20(2).png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
