@@ -13,4 +13,5 @@ public class PaymentPlanTM {
     private int rate;
     private double ratePrice;
     private String description ;
+    private String payId;
 }

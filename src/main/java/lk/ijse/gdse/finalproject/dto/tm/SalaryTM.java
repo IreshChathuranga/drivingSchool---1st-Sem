@@ -12,8 +12,8 @@ public class SalaryTM {
     private String salaryId;
     private double amount;
     private Date payDay;
-    private Date holidays;
-    private Date isReceived;
+    private int holidays;
+    private String isReceived;
     private String adminId;
     private String stafId;
 }

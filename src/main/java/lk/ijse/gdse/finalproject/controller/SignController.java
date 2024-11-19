@@ -11,9 +11,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import lk.ijse.gdse.finalproject.dto.SigninDto;
+import lk.ijse.gdse.finalproject.model.SigninModel;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class SignController implements Initializable {
@@ -125,8 +128,31 @@ public class SignController implements Initializable {
         AnchorPane load = FXMLLoader.load(getClass().getResource(fxmlpath));
         mainAnchor.getChildren().add(load);
     }
+    SigninModel signinModel = new SigninModel();
 
-    public void signinOnAction(ActionEvent actionEvent) throws IOException {
+    public void signinOnAction(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
+        String name=txtName.getText();
+        String userName=txtUserName.getText();
+        int contactNumber= Integer.parseInt(txtNumber.getText());
+        String userAddress=txtAddress.getText();
+        String userPassword=txtPassword.getText();
+
+        SigninDto signinDto= new SigninDto(
+                name,
+                userName,
+                contactNumber,
+                userAddress,
+                userPassword
+        );
+
+        boolean isSaved=signinModel.saveAdmin(signinDto);
+        if(isSaved){
+            txtName.setText("");
+            txtUserName.setText("");
+            txtNumber.setText("");
+            txtAddress.setText("");
+            txtPassword.setText("");
+        }
         navigateTo("/view/HomePage.fxml");
     }
 }

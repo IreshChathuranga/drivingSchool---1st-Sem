@@ -15,4 +15,5 @@ public class PaymentPlanDto {
     private int rate;
     private double ratePrice;
     private String description ;
+    private String payId;
 }

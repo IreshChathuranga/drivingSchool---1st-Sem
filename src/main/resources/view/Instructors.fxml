@@ -9,31 +9,27 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="543.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.finalproject.controller.InstructorsController">
+<AnchorPane prefHeight="678.0" prefWidth="1131.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.finalproject.controller.InstructorsController">
    <children>
-      <TextField layoutX="24.0" layoutY="33.0" prefHeight="29.0" prefWidth="295.0" promptText="Enter ID" style="-fx-background-color: #7E6174; -fx-background-radius: 40;">
+      <TextField fx:id="txtName" layoutX="605.0" layoutY="33.0" prefHeight="32.0" prefWidth="490.0" promptText="Enter Name" style="-fx-background-color: #9e8496; -fx-background-radius: 40;">
          <font>
-            <Font name="System Bold" size="10.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </TextField>
-      <TextField layoutX="372.0" layoutY="33.0" prefHeight="29.0" prefWidth="295.0" promptText="Enter Name" style="-fx-background-color: #7E6174; -fx-background-radius: 40;">
+      <TextField fx:id="txtAge" layoutX="27.0" layoutY="94.0" prefHeight="32.0" prefWidth="490.0" promptText="Enter Age" style="-fx-background-color: #9e8496; -fx-background-radius: 40;">
          <font>
-            <Font name="System Bold" size="10.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </TextField>
-      <TextField layoutX="27.0" layoutY="91.0" prefHeight="29.0" prefWidth="295.0" promptText="Enter Age" style="-fx-background-color: #7E6174; -fx-background-radius: 40;">
-         <font>
-            <Font name="System Bold" size="10.0" />
-         </font>
-      </TextField>
-      <Label layoutX="49.0" layoutY="15.0" text="Instructor ID" textFill="#330a27">
+      <Label fx:id="lblInstructorId" layoutX="49.0" layoutY="15.0" text="Instructor ID" textFill="#330a27">
          <font>
             <Font name="Ebrima Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="401.0" layoutY="15.0" text="Instructor Name" textFill="#330a27">
+      <Label fx:id="lblInstructorName" layoutX="634.0" layoutY="15.0" text="Instructor Name" textFill="#330a27">
          <font>
             <Font name="Ebrima Bold" size="13.0" />
          </font>
@@ -43,17 +39,17 @@
             <Image url="@../icons/icons8-id-50%20(2).png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="381.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="614.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/icons8-username-50.png" />
          </image>
       </ImageView>
-      <Label layoutX="49.0" layoutY="72.0" text="instructor Age" textFill="#330a27">
+      <Label fx:id="lblInstructorAge" layoutX="49.0" layoutY="75.0" text="instructor Age" textFill="#330a27">
          <font>
             <Font name="Ebrima Bold" size="13.0" />
          </font>
       </Label>
-      <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="31.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="31.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/icons8-pensioner-30.png" />
          </image>
@@ -72,80 +68,111 @@
             <Group layoutX="248.0" layoutY="-1.0" />
          </children>
       </Group>
-      <ImageView fitHeight="369.0" fitWidth="607.0" layoutX="32.0" layoutY="175.0" opacity="0.33" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="517.0" fitWidth="755.0" layoutX="32.0" layoutY="175.0" opacity="0.33" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/road.jpeg" />
          </image>
       </ImageView>
-      <Button layoutX="269.0" layoutY="267.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="151.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Save" textFill="WHITE">
+      <Button fx:id="btnSave" layoutX="674.0" layoutY="348.0" mnemonicParsing="false" onAction="#saveOnAction" prefHeight="42.0" prefWidth="117.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Save" textFill="WHITE">
          <font>
             <Font name="Dubai Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="427.0" layoutY="267.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="117.0" style="-fx-background-color: #330a27; -fx-background-radius: 30;" text="Update" textFill="WHITE">
+      <Button fx:id="btnUpdate" layoutX="828.0" layoutY="348.0" mnemonicParsing="false" onAction="#updateOnAction" prefHeight="42.0" prefWidth="117.0" style="-fx-background-color: #330a27; -fx-background-radius: 30;" text="Update" textFill="WHITE">
          <font>
             <Font name="Dubai Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="548.0" layoutY="267.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="117.0" style="-fx-background-color: #643554; -fx-background-radius: 30;" text="Delete" textFill="WHITE">
+      <Button fx:id="btnDelete" layoutX="979.0" layoutY="348.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="42.0" prefWidth="117.0" style="-fx-background-color: #643554; -fx-background-radius: 30;" text="Delete" textFill="WHITE">
          <font>
             <Font name="Dubai Bold" size="16.0" />
          </font>
       </Button>
       <Group layoutX="376.0" layoutY="312.0" />
-      <TextField layoutX="30.0" layoutY="151.0" prefHeight="29.0" prefWidth="635.0" promptText="Enter Certification Detail" style="-fx-background-color: #7E6174; -fx-background-radius: 40;">
+      <TextField fx:id="txtCertification" layoutX="27.0" layoutY="157.0" prefHeight="32.0" prefWidth="1067.0" promptText="Enter Certification Detail" style="-fx-background-color: #9e8496; -fx-background-radius: 40;">
          <font>
-            <Font name="System Bold" size="10.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </TextField>
-      <TableView layoutX="32.0" layoutY="335.0" prefHeight="142.0" prefWidth="635.0" style="-fx-background-color: #330a27;">
+      <TableView fx:id="tblInstructor" layoutX="32.0" layoutY="455.0" onMouseClicked="#onClickTable" prefHeight="142.0" prefWidth="1066.0" style="-fx-background-color: #330a27;">
         <columns>
-          <TableColumn prefWidth="83.0" text="Instructor ID" />
-          <TableColumn prefWidth="103.0" text="Instructor Name" />
-            <TableColumn prefWidth="97.0" text="instructor Age" />
-            <TableColumn minWidth="6.0" prefWidth="114.0" text="Instructor Address " />
-            <TableColumn minWidth="6.0" prefWidth="141.0" text="Certification Detail" />
-            <TableColumn minWidth="6.0" prefWidth="96.0" text="Admin ID" />
+          <TableColumn fx:id="instructorId" prefWidth="83.0" text="Instructor ID" />
+          <TableColumn fx:id="instructorName" prefWidth="237.0" text="Instructor Name" />
+            <TableColumn fx:id="instructorAge" prefWidth="120.0" text="instructor Age" />
+            <TableColumn fx:id="instructorAddress" minWidth="6.0" prefWidth="180.0" text="Instructor Address " />
+            <TableColumn fx:id="certificationDetail" minWidth="6.0" prefWidth="314.0" text="Certification Detail" />
+            <TableColumn fx:id="adminId" minWidth="6.0" prefWidth="130.0" text="Admin ID" />
         </columns>
       </TableView>
-      <Label layoutX="52.0" layoutY="132.0" text="Certification Detail" textFill="#330a27">
+      <Label fx:id="lblCertification" layoutX="52.0" layoutY="138.0" text="Certification Detail" textFill="#330a27">
          <font>
             <Font name="Ebrima Bold" size="13.0" />
          </font>
       </Label>
-      <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="34.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="34.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/icons8-playlist-50.png" />
          </image>
       </ImageView>
-      <TextField layoutX="372.0" layoutY="91.0" prefHeight="29.0" prefWidth="295.0" promptText="Enter Name" style="-fx-background-color: #7E6174; -fx-background-radius: 40;">
+      <TextField fx:id="txtAddress" layoutX="605.0" layoutY="94.0" prefHeight="32.0" prefWidth="490.0" promptText="Enter Address" style="-fx-background-color: #9e8496; -fx-background-radius: 40;">
          <font>
-            <Font name="System Bold" size="10.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="401.0" layoutY="72.0" text="Instructor Address " textFill="#330a27">
+      <Label fx:id="lblInstructorAddress" layoutX="634.0" layoutY="75.0" text="Instructor Address " textFill="#330a27">
          <font>
             <Font name="Ebrima Bold" size="13.0" />
          </font>
       </Label>
-      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="381.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="614.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/icons8-address-24.png" />
          </image>
       </ImageView>
-      <TextField layoutX="32.0" layoutY="209.0" prefHeight="29.0" prefWidth="295.0" promptText="Enter ID" style="-fx-background-color: #7E6174; -fx-background-radius: 40;">
+      <TextField fx:id="txtAdminId" layoutX="27.0" layoutY="218.0" prefHeight="32.0" prefWidth="490.0" promptText="Enter ID" style="-fx-background-color: #9e8496; -fx-background-radius: 40;">
          <font>
-            <Font name="System Bold" size="10.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="56.0" layoutY="192.0" text="Admin ID" textFill="#330a27">
+      <Label fx:id="lblAdminId" layoutX="56.0" layoutY="201.0" text="Admin ID" textFill="#330a27">
          <font>
             <Font name="Ebrima Bold" size="13.0" />
          </font>
       </Label>
-      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="36.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="36.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/icons8-id-50%20(2).png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="reInstructor" arcHeight="5.0" arcWidth="5.0" fill="#9e8496" height="32.0" layoutX="27.0" layoutY="33.0" stroke="#9e8496" strokeType="INSIDE" style="-fx-arc-height: 30; -fx-arc-width: 30;" width="490.0" />
+      <Label fx:id="lblInstructor" layoutX="33.0" layoutY="39.0" text="1">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnRefresh" layoutX="34.0" layoutY="348.0" mnemonicParsing="false" onAction="#refreshOnAction" prefHeight="42.0" prefWidth="88.0" style="-fx-background-color: #9e8496; -fx-background-radius: 30;" text="Refresh">
+         <font>
+            <Font name="Dubai Bold" size="16.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="96.0" fitWidth="188.0" layoutX="921.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/ins1-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="42.0" fitWidth="48.0" layoutX="870.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/kon-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="893.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/kon-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="20.0" fitWidth="25.0" layoutX="913.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/kon-removebg-preview.png" />
          </image>
       </ImageView>
    </children>

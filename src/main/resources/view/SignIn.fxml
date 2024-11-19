@@ -46,17 +46,12 @@
             <Font name="System Bold" size="10.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtID" layoutX="73.0" layoutY="239.0" prefHeight="33.0" prefWidth="176.0" promptText="Enter Your ID" style="-fx-background-radius: 40; -fx-background-color: #7E6174;">
+      <TextField fx:id="txtNumber" layoutX="72.0" layoutY="239.0" prefHeight="33.0" prefWidth="369.0" promptText="Enter Your Number" style="-fx-background-radius: 40; -fx-background-color: #7E6174;">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtNumber" layoutX="264.0" layoutY="239.0" prefHeight="33.0" prefWidth="176.0" promptText="Enter Your Number" style="-fx-background-radius: 40; -fx-background-color: #7E6174;">
-         <font>
-            <Font name="System Bold" size="10.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="txtAddress" layoutX="71.0" layoutY="301.0" prefHeight="33.0" prefWidth="369.0" promptText="Enter Your Address" style="-fx-background-radius: 40; -fx-background-color: #7E6174;">
+      <TextField fx:id="txtAddress" layoutX="72.0" layoutY="301.0" prefHeight="33.0" prefWidth="369.0" promptText="Enter Your Address" style="-fx-background-radius: 40; -fx-background-color: #7E6174;">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
@@ -71,7 +66,7 @@
             <Font name="System Bold" size="10.0" />
          </font>
       </PasswordField>
-      <Text fx:id="textName" fill="#330a27" layoutX="100.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+      <Text fx:id="textName" fill="#330a27" layoutX="100.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Name">
          <font>
             <Font name="Ebrima Bold" size="12.0" />
          </font>
@@ -116,22 +111,12 @@
             <Image url="@../icons/icons8-username-24%20(1).png" />
          </image>
       </ImageView>
-      <ImageView fx:id="idIcon" fitHeight="18.0" fitWidth="33.0" layoutX="82.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../icons/icons8-id-50%20(1).png" />
-         </image>
-      </ImageView>
-      <Text fx:id="textID" fill="#330a27" layoutX="102.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID">
-         <font>
-            <Font name="Ebrima Bold" size="12.0" />
-         </font>
-      </Text>
-      <ImageView fx:id="callIcon" fitHeight="14.0" fitWidth="14.0" layoutX="273.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="callIcon" fitHeight="14.0" fitWidth="14.0" layoutX="83.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/icons8-phone-number-50.png" />
          </image>
       </ImageView>
-      <Text fx:id="textNumber" fill="#330a27" layoutX="288.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Number">
+      <Text fx:id="textNumber" fill="#330a27" layoutX="98.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Number">
          <font>
             <Font name="Ebrima Bold" size="12.0" />
          </font>
