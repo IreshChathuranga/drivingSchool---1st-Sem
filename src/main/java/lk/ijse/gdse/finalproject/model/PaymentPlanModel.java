@@ -15,9 +15,9 @@ public class PaymentPlanModel {
             String subString = lastId.substring(1);
             int i = Integer.parseInt(subString);
             int newIdIndex = i+1;
-            return String.format("PL%04d",newIdIndex);
+            return String.format("Z%03d",newIdIndex);
         }
-        return  "PL001";
+        return  "Z001";
 
     }
     public ArrayList<PaymentPlanDto> getAllPaymentPlan() throws SQLException, ClassNotFoundException {
@@ -45,7 +45,7 @@ public class PaymentPlanModel {
     }
     public boolean updatePaymentPlan(PaymentPlanDto paymentPlanDto) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
-                "update payment_plan set  amount=?, rate=?,  rate_price=?, description=?, payId=? where payplan_id=?",
+                "update payment_plan set  amount=?, rate=?,  rate_price=?, description=?, payment_Id=? where payplan_id=?",
                 paymentPlanDto.getAmount(),
                 paymentPlanDto.getRate(),
                 paymentPlanDto.getRatePrice(),
@@ -53,5 +53,16 @@ public class PaymentPlanModel {
                 paymentPlanDto.getPayId(),
                 paymentPlanDto.getPayplanId()
         );
+    }
+    public ArrayList<String> getAllPayId() throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.execute("select pay_id from payment");
+
+        ArrayList<String> paymentId = new ArrayList<>();
+
+        while (rst.next()){
+            paymentId.add(rst.getString(1));
+        }
+
+        return paymentId;
     }
 }

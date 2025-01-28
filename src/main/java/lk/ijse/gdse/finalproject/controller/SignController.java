@@ -4,13 +4,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import lk.ijse.gdse.finalproject.dto.SigninDto;
 import lk.ijse.gdse.finalproject.model.SigninModel;
 
@@ -18,84 +25,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class SignController implements Initializable {
-
-    public Rectangle mianRactangle;
-    @FXML
-    private ImageView addressIcon;
-
-    @FXML
-    private Button btnLogin;
-
     @FXML
     private Button btnSignup;
-
-    @FXML
-    private ImageView callIcon;
-
-    @FXML
-    private Text createTitle;
-
-    @FXML
-    private ImageView idIcon;
-
-    @FXML
-    private Text lettitle;
 
     @FXML
     private AnchorPane mainAnchor;
 
     @FXML
-    private ImageView mainImage;
-
-    @FXML
-    private Text mainTitle;
-
-    @FXML
-    private ImageView nameIcon;
-
-    @FXML
-    private ImageView passwordIcon;
-
-    @FXML
-    private ImageView secondImage;
-
-    @FXML
-    private Text textAccount;
-
-    @FXML
-    private Text textAdress;
-
-    @FXML
-    private Text textID;
-
-    @FXML
-    private Text textLarge;
-
-    @FXML
-    private Text textName;
-
-    @FXML
-    private Text textNumber;
-
-    @FXML
-    private Text textPassword;
-
-    @FXML
-    private Text textUnderline;
-
-    @FXML
-    private Text textUserName;
-
-    @FXML
-    private ImageView titelImage;
-
-    @FXML
     private TextField txtAddress;
 
-    @FXML
-    private TextField txtID;
 
     @FXML
     private TextField txtName;
@@ -108,11 +49,6 @@ public class SignController implements Initializable {
 
     @FXML
     private TextField txtUserName;
-
-    @FXML
-    private ImageView usernameIcon;
-
-
 
     public void loginOnAction(ActionEvent actionEvent) throws IOException {
         navigateTo("/view/LogIn.fxml");
@@ -153,6 +89,70 @@ public class SignController implements Initializable {
             txtAddress.setText("");
             txtPassword.setText("");
         }
-        navigateTo("/view/HomePage.fxml");
+        navigateTo("/view/LogIn.fxml");
     }
+
+    public void adminOnKeyReleased(KeyEvent keyEvent) {
+        Pattern userPattern = Pattern.compile("^[A-Za-z ]+$");
+        if (!userPattern.matcher(txtName.getText()).matches()) {
+            addError(txtName);
+            btnSignup.setDisable(true);
+        }else{
+            removeError(txtName);
+            btnSignup.setDisable(false);
+        }
+    }
+
+    public void numberOnKeyReleased(KeyEvent keyEvent) {
+        Pattern userPattern = Pattern.compile("^\\d{10}$");
+        if (!userPattern.matcher(txtNumber.getText()).matches()) {
+            addError(txtNumber);
+            btnSignup.setDisable(true);
+        }else{
+            removeError(txtNumber);
+            btnSignup.setDisable(false);
+        }
+    }
+
+    public void addressOnKeyReleased(KeyEvent keyEvent) {
+        Pattern userPattern = Pattern.compile("^[A-Za-z0-9\\s,.\\-\\/]{5,100}$");
+        if (!userPattern.matcher(txtAddress.getText()).matches()) {
+            addError(txtAddress);
+            btnSignup.setDisable(true);
+        }else{
+            removeError(txtAddress);
+            btnSignup.setDisable(false);
+        }
+    }
+
+    public void uerNameOnKeyReleased(KeyEvent keyEvent) {
+        Pattern userPattern = Pattern.compile("^[A-Za-z][A-Za-z0-9._]{2,15}(?<![_.])$");
+        if (!userPattern.matcher(txtUserName.getText()).matches()) {
+            addError(txtUserName);
+            btnSignup.setDisable(true);
+        }else{
+            removeError(txtUserName);
+            btnSignup.setDisable(false);
+        }
+    }
+
+    public void passwordOnKeyReleased(KeyEvent keyEvent) {
+        Pattern userPattern = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!])[A-Za-z\\d@#$%^&+=!]{8,20}$");
+
+
+        if (!userPattern.matcher(txtPassword.getText()).matches()) {
+            addError(txtPassword);
+            btnSignup.setDisable(true);
+        }else{
+            removeError(txtPassword);
+            btnSignup.setDisable(false);
+        }
+    }
+    private void addError(TextField textField) {
+        textField.setStyle("-fx-border-color: red;  -fx-border-radius: 40; -fx-background-color: #7E6174; -fx-background-radius: 40 ");
+    }
+    private void removeError(TextField textField) {
+        textField.setStyle("-fx-border-color:  #7E6174;  -fx-border-radius: 40;-fx-background-color: #7E6174; -fx-background-radius: 40");
+    }
+
 }

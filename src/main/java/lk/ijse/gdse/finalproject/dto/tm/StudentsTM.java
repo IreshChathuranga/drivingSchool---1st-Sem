@@ -20,8 +20,10 @@ public class StudentsTM {
     private String helpingAids;
     private int phoneNumber;
     private String email ;
+    private String adminId;
     private String courseId;
     private String paymentPlanId;
+    private String paymentId;
     private String vehicleId;
 
 }

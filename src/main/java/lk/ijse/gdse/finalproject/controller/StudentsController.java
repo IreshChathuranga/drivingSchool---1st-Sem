@@ -3,14 +3,21 @@ package lk.ijse.gdse.finalproject.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Window;
 import lk.ijse.gdse.finalproject.dto.StudentsDto;
 import lk.ijse.gdse.finalproject.dto.tm.StudentsTM;
 import lk.ijse.gdse.finalproject.model.StudentsModel;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -56,6 +63,8 @@ public class StudentsController implements Initializable {
     public Button btnSave;
     public TextField txtDob;
     public TextField txtName;
+    public Button btnSendEmail;
+    public TextField txtAdmin;
     StudentsModel studentsModel = new StudentsModel();
 
     private void loadTableData() throws SQLException, ClassNotFoundException {
@@ -74,8 +83,10 @@ public class StudentsController implements Initializable {
             studentsTM.setHelpingAids(studentsDto.getHelpingAids());
             studentsTM.setPhoneNumber(studentsDto.getPhoneNumber());
             studentsTM.setEmail(studentsDto.getEmail());
+            studentsTM.setAdminId(studentsDto.getAdminId());
             studentsTM.setCourseId(studentsDto.getCourseId());
             studentsTM.setPaymentPlanId(studentsDto.getPaymentPlanId());
+            studentsTM.setPaymentId(studentsDto.getPaymentId());
             studentsTM.setVehicleId(studentsDto.getVehicleId());
             studentsTMS.add(studentsTM);
         }
@@ -95,20 +106,22 @@ public class StudentsController implements Initializable {
         helpingAids.setCellValueFactory(new PropertyValueFactory<>("helpingAids"));
         phoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         email.setCellValueFactory(new PropertyValueFactory<>("email"));
+        adminId.setCellValueFactory(new PropertyValueFactory<>("adminId"));
         courseId.setCellValueFactory(new PropertyValueFactory<>("courseId"));
         paymentPlanId.setCellValueFactory(new PropertyValueFactory<>("paymentPlanId"));
+        paymentId.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
         vehicleId.setCellValueFactory(new PropertyValueFactory<>("vehicleId"));
 
         try{
             refreshPage();
-        }catch(Exception e){
+        }catch(ClassNotFoundException|SQLException e){
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR,"Fail Booking id").show();
         }
     }
 
     public void loadNextStudentId() throws SQLException, ClassNotFoundException {
-        String nextStudentId = studentsModel.getNextBookingId();
+        String nextStudentId = studentsModel.getNextStuentId();
         lblStudentId.setText(nextStudentId);
     }
 
@@ -131,8 +144,10 @@ public class StudentsController implements Initializable {
         txtHelpingAids.setText("");
         txtNumber.setText("");
         txtEmail.setText("");
+        txtAdmin.setText("");
         txtCourseId.setText("");
         txtPaymentPlanId.setText("");
+        txtPayment.setText("");
         txtVehicelId.setText("");
     }
 
@@ -142,12 +157,14 @@ public class StudentsController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
-        if(optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES){
+        if(optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
             boolean isDeleted = studentsModel.deleteStudent(studentId);
-            refreshPage();
-            new Alert(Alert.AlertType.INFORMATION, "Student deleted").show();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Fail to delete student...!").show();
+            if (isDeleted) {
+                refreshPage();
+                new Alert(Alert.AlertType.INFORMATION, "Student deleted").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Fail to delete student...!").show();
+            }
         }
     }
 
@@ -163,8 +180,10 @@ public class StudentsController implements Initializable {
         String helpingAids = txtHelpingAids.getText();
         int phoneNumber = Integer.parseInt(txtNumber.getText());
         String email = txtEmail.getText();
+        String adminId = txtAdmin.getText();
         String courseId = txtCourseId.getText();
         String paymentPlanId = txtPaymentPlanId.getText();
+        String paymentId = txtPayment.getText();
         String vehicleId = txtVehicelId.getText();
 
         StudentsDto studentsDto = new StudentsDto(
@@ -179,8 +198,10 @@ public class StudentsController implements Initializable {
                 helpingAids,
                 phoneNumber,
                 email,
+                adminId,
                 courseId,
                 paymentPlanId,
+                paymentId,
                 vehicleId
         );
 
@@ -205,8 +226,10 @@ public class StudentsController implements Initializable {
         String helpingAids = txtHelpingAids.getText();
         int phoneNumber = Integer.parseInt(txtNumber.getText());
         String email = txtEmail.getText();
+        String adminId = txtAdmin.getText();
         String courseId = txtCourseId.getText();
         String paymentPlanId = txtPaymentPlanId.getText();
+        String paymentId = txtPayment.getText();
         String vehicleId = txtVehicelId.getText();
 
         StudentsDto studentsDto = new StudentsDto(
@@ -221,8 +244,10 @@ public class StudentsController implements Initializable {
                 helpingAids,
                 phoneNumber,
                 email,
+                adminId,
                 courseId,
                 paymentPlanId,
+                paymentId,
                 vehicleId
         );
 
@@ -239,8 +264,10 @@ public class StudentsController implements Initializable {
             txtHelpingAids.setText("");
             txtNumber.setText("");
             txtEmail.setText("");
+            txtAdmin.setText("");
             txtCourseId.setText("");
             txtPaymentPlanId.setText("");
+            txtPayment.setText("");
             txtVehicelId.setText("");
             new Alert(Alert.AlertType.INFORMATION, "Student Saved").show();
             loadTableData();
@@ -263,8 +290,10 @@ public class StudentsController implements Initializable {
             txtHelpingAids.setText(studentsTM.getHelpingAids());
             txtNumber.setText(String.valueOf(studentsTM.getPhoneNumber()));
             txtEmail.setText(studentsTM.getEmail());
+            txtAdmin.setText(studentsTM.getAdminId());
             txtCourseId.setText(studentsTM.getCourseId());
             txtPaymentPlanId.setText(studentsTM.getPaymentPlanId());
+            txtPayment.setText(studentsTM.getPaymentId());
             txtVehicelId.setText(studentsTM.getVehicleId());
 
             btnSave.setDisable(true);
@@ -275,5 +304,36 @@ public class StudentsController implements Initializable {
 
     public void refreshOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         refreshPage();
+    }
+
+    public void sendEmailOnAction(ActionEvent actionEvent) {
+        StudentsTM selectedItem = tblStudents.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select student!");
+            return;
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SendMail.fxml"));
+            Parent load = loader.load();
+
+            SendMailController sendMailController = loader.getController();
+
+            String email = selectedItem.getEmail();
+            sendMailController.setStudentEmail(email);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(load));
+            stage.setTitle("Send email");
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            Window underWindow = btnUpdate.getScene().getWindow();
+            stage.initOwner(underWindow);
+
+            stage.showAndWait();
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "Fail to load ui..!");
+            e.printStackTrace();
+        }
     }
 }

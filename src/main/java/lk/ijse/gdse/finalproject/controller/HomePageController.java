@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
@@ -17,10 +18,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
-
+    private static final double DEFAULT_WIDTH = 900;
+    private static final double DEFAULT_HEIGHT = 639;
     public Button btnStudents;
     public Button btnBooking;
     public Button btnCourses;
@@ -58,38 +61,7 @@ public class HomePageController implements Initializable {
 
     @FXML
     void dashboardOnAction(ActionEvent event) throws IOException {
-        lblDashboard.setStyle("-fx-background-color: #9e8496; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnDashboard.setStyle("-fx-background-color: #9e8496; -fx-text-fill: #330a27;");
-
-        lblStudents.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnStudents.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblCourses.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnCourses.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblInstructors.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnInstructors.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblLessons.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnLessons.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblMaintainer.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnMaintainers.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblVehicles.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnVehicles.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSalary.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSalary.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSetting.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSetting.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblBooking.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnBooking.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblPayments.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnPayment.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
+        applyButtonStyles(lblDashboard,btnDashboard);
         lblHomePage.setText("DASHBOARD");
         navigateTo("/view/Dashboard.fxml");
     }
@@ -110,38 +82,7 @@ public class HomePageController implements Initializable {
     }
 
     public void studentsOnAction(ActionEvent actionEvent) throws IOException {
-        lblStudents.setStyle("-fx-background-color: #9e8496; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnStudents.setStyle("-fx-background-color: #9e8496; -fx-text-fill: #330a27;");
-
-        lblDashboard.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnDashboard.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblCourses.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnCourses.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblInstructors.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnInstructors.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblLessons.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnLessons.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblMaintainer.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnMaintainers.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblVehicles.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnVehicles.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSalary.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSalary.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSetting.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSetting.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblBooking.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnBooking.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblPayments.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnPayment.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
+        applyButtonStyles(lblStudents,btnStudents);
         lblHomePage.setText("MANAGE STUDENTS");
         navigateTo("/view/Students.fxml");
     }
@@ -149,38 +90,7 @@ public class HomePageController implements Initializable {
 
 
     public void coursesOnAction(ActionEvent actionEvent) throws IOException {
-        lblCourses.setStyle("-fx-background-color: #9e8496; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnCourses.setStyle("-fx-background-color: #9e8496; -fx-text-fill: #330a27;");
-
-        lblDashboard.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnDashboard.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblStudents.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnStudents.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblInstructors.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnInstructors.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblLessons.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnLessons.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblMaintainer.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnMaintainers.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblVehicles.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnVehicles.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSalary.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSalary.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSetting.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSetting.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblBooking.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnBooking.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblPayments.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnPayment.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
+        applyButtonStyles(lblCourses,btnCourses);
         lblHomePage.setText("MANAGE COURSES");
         navigateTo("/view/Courses.fxml");
 
@@ -189,190 +99,35 @@ public class HomePageController implements Initializable {
 
 
     public void instructorsOnAction(ActionEvent actionEvent) throws IOException {
-        lblInstructors.setStyle("-fx-background-color: #9e8496; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnInstructors.setStyle("-fx-background-color: #9e8496; -fx-text-fill: #330a27;");
-
-        lblDashboard.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnDashboard.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblStudents.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnStudents.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblCourses.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnCourses.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblLessons.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnLessons.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblMaintainer.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnMaintainers.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblVehicles.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnVehicles.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSalary.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSalary.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSetting.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSetting.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblBooking.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnBooking.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblPayments.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnPayment.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
+        applyButtonStyles(lblInstructors,btnInstructors);
         lblHomePage.setText("MANAGE INSTRUCTORS");
         navigateTo("/view/Instructors.fxml");
 
     }
 
     public void lessonsOnAction(ActionEvent actionEvent) throws IOException {
-        lblLessons.setStyle("-fx-background-color: #9e8496; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnLessons.setStyle("-fx-background-color: #9e8496; -fx-text-fill: #330a27;");
-
-        lblDashboard.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnDashboard.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblStudents.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnStudents.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblCourses.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnCourses.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblInstructors.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnInstructors.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblMaintainer.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnMaintainers.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblVehicles.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnVehicles.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSalary.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSalary.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSetting.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSetting.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblBooking.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnBooking.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblPayments.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnPayment.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
+        applyButtonStyles(lblLessons,btnLessons);
         lblHomePage.setText("MANAGE LESSONS");
         navigateTo("/view/Lessons.fxml");
 
     }
 
     public void maintainersOnAction(ActionEvent actionEvent) throws IOException {
-        lblMaintainer.setStyle("-fx-background-color: #9e8496; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnMaintainers.setStyle("-fx-background-color: #9e8496; -fx-text-fill: #330a27;");
-
-        lblDashboard.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnDashboard.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblStudents.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnStudents.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblCourses.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnCourses.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblInstructors.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnInstructors.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblLessons.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnLessons.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblVehicles.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnVehicles.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSalary.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSalary.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSetting.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSetting.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblBooking.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnBooking.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblPayments.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnPayment.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
+        applyButtonStyles(lblMaintainer,btnMaintainers);
         lblHomePage.setText("MANAGE MAINTAINERS");
         navigateTo("/view/Maintainers.fxml");
 
     }
 
     public void vehicleOnAction(ActionEvent actionEvent) throws IOException {
-        lblVehicles.setStyle("-fx-background-color: #9e8496; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnVehicles.setStyle("-fx-background-color: #9e8496; -fx-text-fill: #330a27;");
-
-        lblDashboard.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnDashboard.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblStudents.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnStudents.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblCourses.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnCourses.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblInstructors.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnInstructors.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblLessons.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnLessons.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblMaintainer.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnMaintainers.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSalary.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSalary.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSetting.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSetting.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblBooking.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnBooking.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblPayments.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnPayment.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
+        applyButtonStyles(lblVehicles,btnVehicles);
         lblHomePage.setText("MANAGE VEHICLES");
         navigateTo("/view/Vehicle.fxml");
 
     }
 
     public void salaryOnAction(ActionEvent actionEvent) throws IOException {
-        lblSalary.setStyle("-fx-background-color: #9e8496; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSalary.setStyle("-fx-background-color: #9e8496; -fx-text-fill: #330a27;");
-
-        lblDashboard.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnDashboard.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblStudents.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnStudents.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblCourses.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnCourses.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblInstructors.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnInstructors.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblLessons.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnLessons.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblMaintainer.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnMaintainers.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblVehicles.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnVehicles.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSetting.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSetting.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblBooking.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnBooking.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblPayments.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnPayment.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
+        applyButtonStyles(lblSalary,btnSalary);
         lblHomePage.setText("MANAGE SALARY");
         navigateTo("/view/Salary.fxml");
 
@@ -384,19 +139,16 @@ public class HomePageController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlpath));
             Parent load = loader.load();
 
-            double preferredWidth = 900;
-            double preferredHeight = 639;
-
             Stage currentStage = (Stage) mainAnchor.getScene().getWindow();
 
-            currentStage.setWidth(preferredWidth);
-            currentStage.setHeight(preferredHeight);
+            currentStage.setWidth(DEFAULT_WIDTH);
+            currentStage.setHeight(DEFAULT_HEIGHT);
 
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-            currentStage.setX((screenBounds.getWidth() - preferredWidth) / 2);
-            currentStage.setY((screenBounds.getHeight() - preferredHeight) / 2);
+            currentStage.setX((screenBounds.getWidth() - DEFAULT_WIDTH) / 2);
+            currentStage.setY((screenBounds.getHeight() - DEFAULT_HEIGHT) / 2);
 
-            Scene newScene = new Scene(load, preferredWidth, preferredHeight);
+            Scene newScene = new Scene(load, DEFAULT_WIDTH, DEFAULT_HEIGHT);
             currentStage.setScene(newScene);
             currentStage.setResizable(false);
             currentStage.show();
@@ -405,118 +157,51 @@ public class HomePageController implements Initializable {
         }
     }
     public void logoutOnAction(ActionEvent actionEvent) throws IOException {
-        navigateToLogin("/view/LogIn.fxml");
-
+        applyButtonStyles(lblLogout,btnLogout);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES){
+            navigateToLogin("/view/LogIn.fxml");
+        }
     }
 
     public void settingOnAction(ActionEvent actionEvent) throws IOException {
-        lblSetting.setStyle("-fx-background-color: #9e8496; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSetting.setStyle("-fx-background-color: #9e8496; -fx-text-fill: #330a27;");
-
-        lblDashboard.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnDashboard.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblStudents.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnStudents.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblCourses.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnCourses.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblInstructors.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnInstructors.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblLessons.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnLessons.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblMaintainer.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnMaintainers.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblVehicles.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnVehicles.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSalary.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSalary.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblBooking.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnBooking.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblPayments.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnPayment.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
+        applyButtonStyles(lblSetting,btnSetting);
         lblHomePage.setText("SETTING");
         navigateTo("/view/Setting.fxml");
     }
 
     public void bookingOnAction(ActionEvent actionEvent) throws IOException {
-        lblBooking.setStyle("-fx-background-color: #9e8496; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnBooking.setStyle("-fx-background-color: #9e8496; -fx-text-fill: #330a27;");
-
-        lblDashboard.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnDashboard.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblStudents.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnStudents.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblCourses.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnCourses.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblInstructors.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnInstructors.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblLessons.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnLessons.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblMaintainer.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnMaintainers.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblVehicles.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnVehicles.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSalary.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSalary.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSetting.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSetting.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblPayments.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnPayment.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
+        applyButtonStyles(lblBooking,btnBooking);
         lblHomePage.setText("MANAGE BOOKING");
         navigateTo("/view/Booking.fxml");
     }
 
     public void paymentsOnAction(ActionEvent actionEvent) throws IOException {
-        lblPayments.setStyle("-fx-background-color: #9e8496; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnPayment.setStyle("-fx-background-color: #9e8496; -fx-text-fill: #330a27;");
-
-        lblDashboard.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnDashboard.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblStudents.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnStudents.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblCourses.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnCourses.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblInstructors.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnInstructors.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblLessons.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnLessons.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblMaintainer.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnMaintainers.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblVehicles.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnVehicles.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSalary.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSalary.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblSetting.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnSetting.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
-
-        lblBooking.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill:  #330a27;");
-        btnBooking.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #330a27;");
+        applyButtonStyles(lblPayments,btnPayment);
         lblHomePage.setText("MANAGE PAYMENTS");
         navigateTo("/view/Payment.fxml");
+    }
+    private void applyButtonStyles(Label activeLabel, Button activeButton) {
+        String inactiveStyle = "-fx-background-color: #ffffff; -fx-background-radius: 45; -fx-text-fill: #330a27;";
+        String activeStyle = "-fx-background-color: #9e8496; -fx-background-radius: 45; -fx-text-fill: #330a27;";
+
+        activeLabel.setStyle(activeStyle);
+        activeButton.setStyle(activeStyle);
+
+        Label[] labels = {lblDashboard, lblStudents, lblCourses, lblInstructors, lblLessons, lblMaintainer, lblVehicles, lblSalary, lblSetting, lblBooking, lblPayments, lblLogout};
+        Button[] buttons = {btnDashboard, btnStudents, btnCourses, btnInstructors, btnLessons, btnMaintainers, btnVehicles, btnSalary, btnSetting, btnBooking, btnPayment, btnLogout};
+
+        for (Label label : labels) {
+            if (label != activeLabel) {
+                label.setStyle(inactiveStyle);
+            }
+        }
+
+        for (Button button : buttons) {
+            if (button != activeButton) {
+                button.setStyle(inactiveStyle);
+            }
+        }
     }
 }

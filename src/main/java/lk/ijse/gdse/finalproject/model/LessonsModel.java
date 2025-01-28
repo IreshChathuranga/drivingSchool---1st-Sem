@@ -1,6 +1,5 @@
 package lk.ijse.gdse.finalproject.model;
 
-import lk.ijse.gdse.finalproject.dto.BookingDetailsDto;
 import lk.ijse.gdse.finalproject.dto.LessonsDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -51,16 +50,21 @@ public class LessonsModel {
 
         return lessons;
     }
-    public boolean saveLessonList(ArrayList<LessonsDto> lessonsDTOS) throws SQLException, ClassNotFoundException {
-        for (LessonsDto lessonsDTO : lessonsDTOS){
-            boolean isLessonSaved = saveLessons(lessonsDTO);
-            if (!isLessonSaved){
-                return false;
-            }
+public boolean saveLessonList(ArrayList<LessonsDto> lessonsDTOS) throws SQLException, ClassNotFoundException {
+    for (LessonsDto lessonsDTO : lessonsDTOS) {
+        boolean isLessonSaved = saveLessons(lessonsDTO);
+        if (!isLessonSaved) {
+            return false;
         }
-        return true;
     }
+    return true;
+}
+
     public boolean saveLessons(LessonsDto lessonsDto) throws SQLException, ClassNotFoundException {
-       return CrudUtil.execute("insert into training_lesson values(?,?,?,?)", lessonsDto.getLessonName(),lessonsDto.getTimePeriod(),lessonsDto.getStudentId(),lessonsDto.getInstructorId());
+        return CrudUtil.execute("insert into training_lesson values (?, ?, ?, ?)",
+                lessonsDto.getLessonName(),
+                lessonsDto.getTimePeriod(),
+                lessonsDto.getStudentId(),
+                lessonsDto.getInstructorId());
     }
 }

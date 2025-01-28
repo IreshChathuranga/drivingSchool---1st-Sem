@@ -197,4 +197,6 @@ public class SalaryController implements Initializable {
         txtAdminId.setText("");
         txtStaffId.setText("");
     }
+
+
 }

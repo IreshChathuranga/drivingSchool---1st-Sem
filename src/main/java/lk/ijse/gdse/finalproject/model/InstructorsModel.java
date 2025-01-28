@@ -1,7 +1,6 @@
 package lk.ijse.gdse.finalproject.model;
 
 import lk.ijse.gdse.finalproject.dto.InstructorsDto;
-import lk.ijse.gdse.finalproject.dto.StudentsDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
 import java.sql.ResultSet;

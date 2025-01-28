@@ -28,7 +28,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-
+    private static final double DEFAULT_WIDTH = 1380;
+    private static final double DEFAULT_HEIGHT = 775;
     @FXML
     private Button btnLogin;
 
@@ -36,43 +37,7 @@ public class LoginController implements Initializable {
     private Button btnSignin;
 
     @FXML
-    private Text helloTitle;
-
-    @FXML
     private AnchorPane mainAnchor;
-
-    @FXML
-    private ImageView mainImage;
-
-    @FXML
-    private Rectangle mainRactangle;
-
-    @FXML
-    private Text mainTitle;
-
-    @FXML
-    private ImageView passwordIcon;
-
-    @FXML
-    private ImageView secondImage;
-
-    @FXML
-    private Text textAccount;
-
-    @FXML
-    private Text textLarge;
-
-    @FXML
-    private Text textPassword;
-
-    @FXML
-    private Text textUnderline;
-
-    @FXML
-    private Text textUserName;
-
-    @FXML
-    private ImageView titelImage;
 
     @FXML
     private PasswordField txtPassword;
@@ -80,15 +45,9 @@ public class LoginController implements Initializable {
     @FXML
     private TextField txtUserName;
 
-    @FXML
-    private ImageView usernameIcon;
-
-    @FXML
-    private Text welcometitle;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //navigateTo("/view/SignIn.fxml");
+
     }
 
     public void loginOnAction(ActionEvent actionEvent) {
@@ -142,19 +101,16 @@ public class LoginController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxlmpath));
             Parent load = loader.load();
 
-            double preferredWidth = 1380;
-            double preferredHeight = 775;
-
             Stage currentStage = (Stage) mainAnchor.getScene().getWindow();
 
-            currentStage.setWidth(preferredWidth);
-            currentStage.setHeight(preferredHeight);
+            currentStage.setWidth(DEFAULT_WIDTH);
+            currentStage.setHeight(DEFAULT_HEIGHT);
 
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-            currentStage.setX((screenBounds.getWidth() - preferredWidth) / 2);
-            currentStage.setY((screenBounds.getHeight() - preferredHeight) / 2);
+            currentStage.setX((screenBounds.getWidth() - DEFAULT_WIDTH) / 2);
+            currentStage.setY((screenBounds.getHeight() - DEFAULT_HEIGHT) / 2);
 
-            Scene newScene = new Scene(load, preferredWidth, preferredHeight);
+            Scene newScene = new Scene(load, DEFAULT_WIDTH, DEFAULT_HEIGHT);
             currentStage.setScene(newScene);
             currentStage.setResizable(false);
             currentStage.show();

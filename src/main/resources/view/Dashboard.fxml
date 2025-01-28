@@ -3,6 +3,8 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -168,5 +170,13 @@
       <Button fx:id="btnStudent" layoutX="268.0" layoutY="149.0" mnemonicParsing="false" onAction="#studentOnAction" opacity="0.0" prefHeight="220.0" prefWidth="150.0" />
       <Button fx:id="btnMaintainer" layoutX="39.0" layoutY="402.0" mnemonicParsing="false" onAction="#maintainerOnAction" opacity="0.0" prefHeight="220.0" prefWidth="150.0" />
       <Button fx:id="btnVehicles" layoutX="268.0" layoutY="400.0" mnemonicParsing="false" onAction="#vehicleOnAction" opacity="0.0" prefHeight="221.0" prefWidth="150.0" />
+      <TableView fx:id="tblBooking" layoutX="446.0" layoutY="420.0" opacity="0.54" prefHeight="200.0" prefWidth="653.0">
+        <columns>
+          <TableColumn fx:id="bookId" prefWidth="150.0" text="BookingId" />
+          <TableColumn fx:id="bookDate" prefWidth="167.0" text="BookingDate" />
+            <TableColumn fx:id="bookTime" prefWidth="175.0" text="BookingTime" />
+            <TableColumn fx:id="rescheduleReason" prefWidth="160.0" text="Reschedule Reason" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

@@ -68,12 +68,14 @@ public class MaintainersController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
-        if(optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES){
+        if(optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
             boolean isDeleted = maintainersModel.deleteMaintainer(maintainId);
-            refreshPage();
-            new Alert(Alert.AlertType.INFORMATION, "Maintainer deleted").show();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Fail to delete maintainer...!").show();
+            if (isDeleted) {
+                refreshPage();
+                new Alert(Alert.AlertType.INFORMATION, "Maintainer deleted").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Fail to delete maintainer...!").show();
+            }
         }
     }
 
@@ -156,7 +158,7 @@ public class MaintainersController implements Initializable {
             refreshPage();
         }catch(Exception e){
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Fail Booking id").show();
+            new Alert(Alert.AlertType.ERROR,"Fail Maintainer id").show();
         }
     }
 }
