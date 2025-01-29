@@ -7,9 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.gdse.finalproject.dto.MaintainersDto;
-import lk.ijse.gdse.finalproject.dto.tm.MaintainersTM;
-import lk.ijse.gdse.finalproject.model.MaintainersModel;
+import lk.ijse.gdse.finalproject.bo.custom.MaintainersBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.MaintainersBOImpl;
+import lk.ijse.gdse.finalproject.model.MaintainersDto;
+import lk.ijse.gdse.finalproject.model.tm.MaintainersTM;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -32,10 +33,10 @@ public class MaintainersController implements Initializable {
     public TableColumn<MaintainersTM,String> maintainTask;
     public TableColumn<MaintainersTM,Integer> contactNumber;
 
-    MaintainersModel maintainersModel = new MaintainersModel();
+    MaintainersBO maintainersBO = new MaintainersBOImpl();
 
     private void loadTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<MaintainersDto> maintainersDtos = maintainersModel.getAllMaintainer();
+        ArrayList<MaintainersDto> maintainersDtos = maintainersBO.getAllMaintainer();
         ObservableList<MaintainersTM> maintainersTMS = FXCollections.observableArrayList();
         for(MaintainersDto maintainersDto:maintainersDtos){
             MaintainersTM maintainersTM=new MaintainersTM();
@@ -69,7 +70,7 @@ public class MaintainersController implements Initializable {
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
         if(optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
-            boolean isDeleted = maintainersModel.deleteMaintainer(maintainId);
+            boolean isDeleted = maintainersBO.deleteMaintainer(maintainId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Maintainer deleted").show();
@@ -92,7 +93,7 @@ public class MaintainersController implements Initializable {
                 contactNumber
         );
 
-        boolean isUpdate = maintainersModel.updateMaintainer(maintainersDto);
+        boolean isUpdate = maintainersBO.updateMaintainer(maintainersDto);
         if(isUpdate){
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Maintainer Updated").show();
@@ -114,7 +115,7 @@ public class MaintainersController implements Initializable {
                 contactNumber
         );
 
-        boolean isSave = maintainersModel.saveMaintainer(maintainersDto);
+        boolean isSave = maintainersBO.saveMaintainer(maintainersDto);
         if(isSave){
             loadNextMaintainId();
             txtName.setText("");
@@ -131,7 +132,7 @@ public class MaintainersController implements Initializable {
         refreshPage();
     }
     public void loadNextMaintainId() throws SQLException, ClassNotFoundException {
-        String nextMaintainId = maintainersModel.getNextMaintainerId();
+        String nextMaintainId = maintainersBO.getNextMaintainerId();
         lblMaintainId.setText(nextMaintainId);
     }
     private void refreshPage() throws SQLException, ClassNotFoundException {

@@ -8,9 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-import lk.ijse.gdse.finalproject.dto.InstructorsDto;
-import lk.ijse.gdse.finalproject.dto.tm.InstructorsTM;
-import lk.ijse.gdse.finalproject.model.InstructorsModel;
+import lk.ijse.gdse.finalproject.bo.custom.InstructorsBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.InstructorsBOImpl;
+import lk.ijse.gdse.finalproject.model.InstructorsDto;
+import lk.ijse.gdse.finalproject.model.tm.InstructorsTM;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -42,9 +43,9 @@ public class InstructorsController implements Initializable {
     public Button btnUpdate;
     public Button btnSave;
     public Rectangle reInstructor;
-    InstructorsModel instructorsModel = new InstructorsModel();
+    InstructorsBO instructorsBO = new InstructorsBOImpl();
     private void loadTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<InstructorsDto> instructorsDtos = instructorsModel.getAllInstructors();
+        ArrayList<InstructorsDto> instructorsDtos = instructorsBO.getAllInstructors();
         ObservableList<InstructorsTM> instructorsTMS = FXCollections.observableArrayList();
         for(InstructorsDto instructorsDto:instructorsDtos){
             InstructorsTM instructorsTM=new InstructorsTM();
@@ -76,7 +77,7 @@ public class InstructorsController implements Initializable {
         }
     }
     public void loadNextInstructorId() throws SQLException, ClassNotFoundException {
-        String nextInstructorId = instructorsModel.getNextInstructorId();
+        String nextInstructorId = instructorsBO.getNextInstructorId();
         lblInstructor.setText(nextInstructorId);
     }
     public void onClickTable(MouseEvent mouseEvent) {
@@ -108,7 +109,7 @@ public class InstructorsController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = instructorsModel.deleteInstructor(instructorId);
+            boolean isDeleted = instructorsBO.deleteInstructor(instructorId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Instructor deleted").show();
@@ -141,48 +142,48 @@ public class InstructorsController implements Initializable {
         String certificationDetail = txtCertification.getText();
         String adminId = txtAdminId.getText();
 
-        String namePattern = "^[A-Za-z ]+$";
-        String agePattern = "^[0-9]{1,2}$";
-        String addressPattern ="^[A-Za-z ]+$";
-        String certificationDetailPattern = "^[A-Za-z ]+$";
-        String adminPattern = "^[A-Z]\\d{3}$";
+//        String namePattern = "^[A-Za-z ]+$";
+//        String agePattern = "^[0-9]{1,2}$";
+//        String addressPattern ="^[A-Za-z ]+$";
+//        String certificationDetailPattern = "^[A-Za-z ]+$";
+//        String adminPattern = "^[A-Z]\\d{3}$";
+//
+//        boolean isValidName = instructorName.matches(namePattern);
+//        boolean isValidAge = String.valueOf(instructorAge).matches(agePattern) && instructorAge >= 18 && instructorAge <= 99;
+//        boolean isValidAddress = instructorAddress.matches(addressPattern);
+//        boolean isValidCertification = certificationDetail.matches(certificationDetailPattern);
+//        boolean isValidAdmin = adminId.matches(adminPattern);
+//
+//        if (!isValidName) {
+//            txtName.setStyle(txtName.getStyle() + ";-fx-border-color: #8a0b0b;");
+//            txtName.setStyle(txtName.getStyle() + ";-fx-border-radius: 40;");
+//            txtName.setStyle(txtName.getStyle() + ";-fx-border-width: 2;");
+//        }
+//
+//        if (!isValidAge) {
+//            txtAge.setStyle(txtAge.getStyle() + ";-fx-border-color: #8a0b0b;");
+//            txtAge.setStyle(txtAge.getStyle() + ";-fx-border-radius: 40;");
+//            txtAge.setStyle(txtAge.getStyle() + ";-fx-border-width: 2;");
+//        }
+//
+//        if (!isValidAddress) {
+//            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: #8a0b0b;");
+//            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-radius: 40;");
+//            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-width: 2;");
+//        }
+//
+//        if (!isValidCertification) {
+//            txtCertification.setStyle(txtCertification.getStyle() + ";-fx-border-color: #8a0b0b;");
+//            txtCertification.setStyle(txtCertification.getStyle() + ";-fx-border-radius: 40;");
+//            txtCertification.setStyle(txtCertification.getStyle() + ";-fx-border-width: 2;");
+//        }
+//        if (!isValidAdmin) {
+//            txtAdminId.setStyle(txtAdminId.getStyle() + ";-fx-border-color: #8a0b0b;");
+//            txtAdminId.setStyle(txtAdminId.getStyle() + ";-fx-border-radius: 40;");
+//            txtAdminId.setStyle(txtAdminId.getStyle() + ";-fx-border-width: 2;");
+//        }
 
-        boolean isValidName = instructorName.matches(namePattern);
-        boolean isValidAge = String.valueOf(instructorAge).matches(agePattern) && instructorAge >= 18 && instructorAge <= 99;
-        boolean isValidAddress = instructorAddress.matches(addressPattern);
-        boolean isValidCertification = certificationDetail.matches(certificationDetailPattern);
-        boolean isValidAdmin = adminId.matches(adminPattern);
-
-        if (!isValidName) {
-            txtName.setStyle(txtName.getStyle() + ";-fx-border-color: #8a0b0b;");
-            txtName.setStyle(txtName.getStyle() + ";-fx-border-radius: 40;");
-            txtName.setStyle(txtName.getStyle() + ";-fx-border-width: 2;");
-        }
-
-        if (!isValidAge) {
-            txtAge.setStyle(txtAge.getStyle() + ";-fx-border-color: #8a0b0b;");
-            txtAge.setStyle(txtAge.getStyle() + ";-fx-border-radius: 40;");
-            txtAge.setStyle(txtAge.getStyle() + ";-fx-border-width: 2;");
-        }
-
-        if (!isValidAddress) {
-            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: #8a0b0b;");
-            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-radius: 40;");
-            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-width: 2;");
-        }
-
-        if (!isValidCertification) {
-            txtCertification.setStyle(txtCertification.getStyle() + ";-fx-border-color: #8a0b0b;");
-            txtCertification.setStyle(txtCertification.getStyle() + ";-fx-border-radius: 40;");
-            txtCertification.setStyle(txtCertification.getStyle() + ";-fx-border-width: 2;");
-        }
-        if (!isValidAdmin) {
-            txtAdminId.setStyle(txtAdminId.getStyle() + ";-fx-border-color: #8a0b0b;");
-            txtAdminId.setStyle(txtAdminId.getStyle() + ";-fx-border-radius: 40;");
-            txtAdminId.setStyle(txtAdminId.getStyle() + ";-fx-border-width: 2;");
-        }
-
-        if (isValidName && isValidAge && isValidAddress && isValidCertification && isValidAdmin) {
+//        if (isValidName && isValidAge && isValidAddress && isValidCertification && isValidAdmin) {
             InstructorsDto instructorsDto = new InstructorsDto(
                     instructorId,
                     instructorName,
@@ -192,7 +193,7 @@ public class InstructorsController implements Initializable {
                     adminId
             );
 
-            boolean isSaved = instructorsModel.saveInstructor(instructorsDto);
+            boolean isSaved = instructorsBO.saveInstructor(instructorsDto);
             if (isSaved) {
                 loadNextInstructorId();
                 txtName.setText("");
@@ -206,7 +207,7 @@ public class InstructorsController implements Initializable {
                 new Alert(Alert.AlertType.ERROR, "Save fail").show();
 
             }
-        }
+
     }
 
     public void updateOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
@@ -226,7 +227,7 @@ public class InstructorsController implements Initializable {
                     adminId
             );
 
-            boolean isUpdate = instructorsModel.updateInstructor(instructorsDto);
+            boolean isUpdate = instructorsBO.updateInstructor(instructorsDto);
             if (isUpdate) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Instructor Updated").show();

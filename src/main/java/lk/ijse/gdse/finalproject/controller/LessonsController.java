@@ -7,9 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.gdse.finalproject.dto.LessonsDto;
-import lk.ijse.gdse.finalproject.dto.tm.LessonsTM;
-import lk.ijse.gdse.finalproject.model.LessonsModel;
+import lk.ijse.gdse.finalproject.bo.custom.LessonsBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.LessonsBOImpl;
+import lk.ijse.gdse.finalproject.model.LessonsDto;
+import lk.ijse.gdse.finalproject.model.tm.LessonsTM;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -31,9 +32,9 @@ public class LessonsController implements Initializable {
     public Button btnDelete;
     public TextField txtInstructorId;
     public Button btnUpdate;
-    LessonsModel lessonsModel = new LessonsModel();
+    LessonsBO lessonsBO = new LessonsBOImpl();
     public void loadTableData() throws SQLException, ClassNotFoundException{
-        ArrayList<LessonsDto>  lessonsDtos = lessonsModel.getAllLessons();
+        ArrayList<LessonsDto>  lessonsDtos = lessonsBO.getAllLessons();
         ObservableList<LessonsTM> lessonsTMS = FXCollections.observableArrayList();
         for(LessonsDto lessonsDto:lessonsDtos){
             LessonsTM lessonsTM = new LessonsTM();
@@ -73,7 +74,7 @@ public class LessonsController implements Initializable {
                 studentId,
                 instructorId
         );
-        boolean isSaved = lessonsModel.saveLesson(lessonsDto);
+        boolean isSaved = lessonsBO.saveLesson(lessonsDto);
         if (isSaved) {
             txtLessonName.setText("");
             txtTimePeriod.setText("");
@@ -99,7 +100,7 @@ public class LessonsController implements Initializable {
                 studentId,
                 instructorId
         );
-        boolean isUpdated = lessonsModel.updateLesson(lessonsDto);
+        boolean isUpdated = lessonsBO.updateLesson(lessonsDto);
         if (isUpdated) {
            refreshPage();
            new Alert(Alert.AlertType.INFORMATION, "Lesson Updated").show();
@@ -117,7 +118,7 @@ public class LessonsController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = lessonsModel.deleteLesson(lessonName);
+            boolean isDeleted = lessonsBO.deleteLesson(lessonName);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Lesson deleted").show();

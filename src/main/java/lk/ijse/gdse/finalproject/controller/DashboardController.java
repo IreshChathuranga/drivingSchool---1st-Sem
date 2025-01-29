@@ -11,9 +11,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.gdse.finalproject.dto.BookedDto;
-import lk.ijse.gdse.finalproject.dto.tm.BookedTM;
-import lk.ijse.gdse.finalproject.model.BookedModel;
+import lk.ijse.gdse.finalproject.bo.custom.BookedBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.BookedBOImpl;
+import lk.ijse.gdse.finalproject.model.BookedDto;
+import lk.ijse.gdse.finalproject.model.tm.BookedTM;
 
 import java.io.IOException;
 import java.net.URL;
@@ -69,9 +70,9 @@ public class DashboardController implements Initializable {
             new Alert(Alert.AlertType.ERROR,"Fail Booking id").show();
         }
     }
-    BookedModel bookedModel = new BookedModel();
+        BookedBO bookedBO = new BookedBOImpl();
     public void loadTableData() throws SQLException, ClassNotFoundException{
-        ArrayList<BookedDto> bookedDtos = bookedModel.getAllBooking();
+        ArrayList<BookedDto> bookedDtos = bookedBO.getAllBooking(); //loose coupling
         ObservableList<BookedTM> bookedTMS = FXCollections.observableArrayList();
         for(BookedDto bookedDto:bookedDtos){
             BookedTM bookedTM = new BookedTM();

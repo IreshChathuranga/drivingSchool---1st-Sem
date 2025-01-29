@@ -6,12 +6,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lk.ijse.gdse.finalproject.dto.*;
-import lk.ijse.gdse.finalproject.dto.tm.CartTM;
-import lk.ijse.gdse.finalproject.model.BookingModel;
-import lk.ijse.gdse.finalproject.model.InstructorsModel;
-import lk.ijse.gdse.finalproject.model.LessonsModel;
-import lk.ijse.gdse.finalproject.model.StudentsModel;
+import lk.ijse.gdse.finalproject.bo.custom.BookingBO;
+import lk.ijse.gdse.finalproject.bo.custom.InstructorsBO;
+import lk.ijse.gdse.finalproject.bo.custom.LessonsBO;
+import lk.ijse.gdse.finalproject.bo.custom.StudentsBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.BookingBOImpl;
+import lk.ijse.gdse.finalproject.bo.custom.impl.InstructorsBOImpl;
+import lk.ijse.gdse.finalproject.bo.custom.impl.LessonsBOImpl;
+import lk.ijse.gdse.finalproject.bo.custom.impl.StudentsBOImpl;
+import lk.ijse.gdse.finalproject.dao.custom.impl.InstructorsDAOImpl;
+import lk.ijse.gdse.finalproject.dao.custom.impl.LessonsDAOImpl;
+import lk.ijse.gdse.finalproject.dao.custom.impl.StudentsDAOImpl;
+import lk.ijse.gdse.finalproject.model.*;
+import lk.ijse.gdse.finalproject.model.tm.CartTM;
 
 import java.net.URL;
 import java.sql.Date;
@@ -38,10 +45,9 @@ public class BookingController implements Initializable {
     public ComboBox<String> cmbInstructor;
     public Label lblinstuName;
 
-    private final StudentsModel studentsModel = new StudentsModel();
-    private final InstructorsModel instructorsModel = new InstructorsModel();
-    private final BookingModel bookingModel = new BookingModel();
-    private final LessonsModel lessonsModel = new LessonsModel();
+    private final StudentsDAOImpl studentsModel = new StudentsDAOImpl();
+    private final InstructorsDAOImpl instructorsModel = new InstructorsDAOImpl();
+    private final LessonsDAOImpl lessonsModel = new LessonsDAOImpl();
 
     private final ObservableList<CartTM> cartTMS = FXCollections.observableArrayList();
     public TableColumn<CartTM, String> studentId;
@@ -54,9 +60,13 @@ public class BookingController implements Initializable {
     public TableColumn<CartTM, String> timePeriod;
     public TableColumn<?, ?> action;
     public Button btnPlaceBooking;
+    InstructorsBO instructorsBO = new InstructorsBOImpl();
+    LessonsBO lessonsBO = new LessonsBOImpl();
+    StudentsBO studentsBO = new StudentsBOImpl();
+    BookingBO bookingBO = new BookingBOImpl();
     public void studentOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String selectedStudentId = cmbStudentId.getSelectionModel().getSelectedItem();
-        StudentsDto studentsDto = studentsModel.findById(selectedStudentId);
+        StudentsDto studentsDto = studentsBO.findById(selectedStudentId);
 
         if (studentsDto != null) {
             lblStuName.setText(studentsDto.getStudentName());
@@ -69,7 +79,7 @@ public class BookingController implements Initializable {
 
     public void instructorOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String selectedInstructorId = cmbInstructor.getSelectionModel().getSelectedItem();
-        InstructorsDto instructorsDto = instructorsModel.findById(selectedInstructorId);
+        InstructorsDto instructorsDto = instructorsBO.findById(selectedInstructorId);
 
         if (instructorsDto != null) {
             lblinstuName.setText(instructorsDto.getInstructorName());
@@ -87,7 +97,7 @@ public class BookingController implements Initializable {
     }
 
     private void refreshPage() throws SQLException, ClassNotFoundException {
-        lblBokk.setText(bookingModel.getNextBookingId());
+        lblBokk.setText(bookingBO.getNextBookingId());
         loadStudentIds();
         loadInstructorIds();
         loadLessons();
@@ -122,21 +132,21 @@ public class BookingController implements Initializable {
     }
 
     private void loadStudentIds() throws SQLException, ClassNotFoundException {
-        ArrayList<String> studentIds = studentsModel.getAllStudentIds();
+        ArrayList<String> studentIds = studentsBO.getAllStudentIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(studentIds);
         cmbStudentId.setItems(observableList);
     }
 
     private void loadInstructorIds() throws SQLException, ClassNotFoundException {
-        ArrayList<String> instructorIds = instructorsModel.getAllInstructorIds();
+        ArrayList<String> instructorIds = instructorsBO.getAllInstructorIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(instructorIds);
         cmbInstructor.setItems(observableList);
     }
 
     private void loadLessons() throws SQLException, ClassNotFoundException {
-        ArrayList<String> lessons = lessonsModel.getAlllessons();
+        ArrayList<String> lessons = lessonsBO.getAlllesson();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(lessons);
         cmbLessons.setItems(observableList);
@@ -239,7 +249,7 @@ public class BookingController implements Initializable {
                 chooseTrainerDTOS
         );
 
-        boolean isSaved = bookingModel.saveBooking(bookingDto);
+        boolean isSaved = bookingBO.saveBooking(bookingDto);
         if (isSaved) {
             new Alert(Alert.AlertType.INFORMATION, "Booking saved..!").show();
             refreshPage();

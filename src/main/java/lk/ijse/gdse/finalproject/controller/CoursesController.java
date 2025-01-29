@@ -7,9 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.gdse.finalproject.dto.CoursesDto;
-import lk.ijse.gdse.finalproject.dto.tm.CoursesTM;
-import lk.ijse.gdse.finalproject.model.CoursesModel;
+import lk.ijse.gdse.finalproject.bo.custom.CoursesBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.CoursesBOImpl;
+import lk.ijse.gdse.finalproject.model.CoursesDto;
+import lk.ijse.gdse.finalproject.model.tm.CoursesTM;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,9 +29,9 @@ public class CoursesController implements Initializable {
     public Button btnSave;
     public TextField txtAdmin;
     public TextField txtCourseName;
-    CoursesModel coursesModel = new CoursesModel();
+    CoursesBO coursesBO = new CoursesBOImpl();
     public void loadTableData() throws SQLException, ClassNotFoundException{
-        ArrayList<CoursesDto> coursesDtos = coursesModel.getAllCourse();
+        ArrayList<CoursesDto> coursesDtos = coursesBO.getAllCourse();
         ObservableList<CoursesTM> coursesTMS = FXCollections.observableArrayList();
         for(CoursesDto coursesDto:coursesDtos){
             CoursesTM coursesTM = new CoursesTM();
@@ -54,7 +55,7 @@ public class CoursesController implements Initializable {
         txtAdmin.setText("");
     }
     public void loadNextCourseId() throws SQLException, ClassNotFoundException {
-        String nextCourseId = coursesModel.getNextCourseId();
+        String nextCourseId = coursesBO.getNextCourseId();
         lblCourseId.setText(nextCourseId);
     }
 
@@ -99,7 +100,7 @@ public class CoursesController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = coursesModel.deleteCourse(courseId);
+            boolean isDeleted = coursesBO.deleteCourse(courseId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Course deleted").show();
@@ -119,7 +120,7 @@ public class CoursesController implements Initializable {
                 courseName,
                 adminId
         );
-        boolean isUpdated = coursesModel.updateCourse(coursesDto);
+        boolean isUpdated = coursesBO.updateCourse(coursesDto);
         if (isUpdated) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Course Updated").show();
@@ -139,7 +140,7 @@ public class CoursesController implements Initializable {
                 courseName,
                 adminId
         );
-        boolean isSaved = coursesModel.saveCourse(coursesDto);
+        boolean isSaved = coursesBO.saveCourse(coursesDto);
         if (isSaved) {
             loadNextCourseId();
             txtCourseName.setText("");

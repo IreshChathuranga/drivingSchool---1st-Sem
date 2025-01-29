@@ -4,22 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import lk.ijse.gdse.finalproject.dto.SigninDto;
-import lk.ijse.gdse.finalproject.model.SigninModel;
+import lk.ijse.gdse.finalproject.bo.custom.SigninBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.SigninBOImpl;
+import lk.ijse.gdse.finalproject.model.SigninDto;
 
 import java.io.IOException;
 import java.net.URL;
@@ -64,7 +56,7 @@ public class SignController implements Initializable {
         AnchorPane load = FXMLLoader.load(getClass().getResource(fxmlpath));
         mainAnchor.getChildren().add(load);
     }
-    SigninModel signinModel = new SigninModel();
+    SigninBO signinBO = new SigninBOImpl();
 
     public void signinOnAction(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
         String name=txtName.getText();
@@ -81,7 +73,7 @@ public class SignController implements Initializable {
                 userPassword
         );
 
-        boolean isSaved=signinModel.saveAdmin(signinDto);
+        boolean isSaved=signinBO.saveAdmin(signinDto);
         if(isSaved){
             txtName.setText("");
             txtUserName.setText("");

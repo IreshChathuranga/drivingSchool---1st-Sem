@@ -7,9 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.gdse.finalproject.dto.PaymentPlanDto;
-import lk.ijse.gdse.finalproject.dto.tm.PaymentPlanTM;
-import lk.ijse.gdse.finalproject.model.PaymentPlanModel;
+import lk.ijse.gdse.finalproject.bo.custom.PaymentPlanBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.PaymentPlanBOImpl;
+import lk.ijse.gdse.finalproject.model.PaymentPlanDto;
+import lk.ijse.gdse.finalproject.model.tm.PaymentPlanTM;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -34,9 +35,9 @@ public class PaymentPlanController implements Initializable {
     public TextField txtPayId;
     public Button btnReceipt;
     public ComboBox<String> cmbPayId;
-    PaymentPlanModel paymentPlanModel= new PaymentPlanModel();
+    PaymentPlanBO paymentPlanBO= new PaymentPlanBOImpl();
     private void loadTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<PaymentPlanDto> paymentPlanDtos = paymentPlanModel.getAllPaymentPlan();
+        ArrayList<PaymentPlanDto> paymentPlanDtos = paymentPlanBO.getAllPaymentPlan();
         ObservableList<PaymentPlanTM> paymentPlanTMS = FXCollections.observableArrayList();
         for(PaymentPlanDto paymentPlanDto:paymentPlanDtos){
             PaymentPlanTM paymentPlanTM=new PaymentPlanTM();
@@ -52,7 +53,7 @@ public class PaymentPlanController implements Initializable {
     }
 
     public void loadNextPaymentPlanId() throws SQLException, ClassNotFoundException {
-        String nextPaymentPalnId = paymentPlanModel.getNextPaymentPlanId();
+        String nextPaymentPalnId = paymentPlanBO.getNextPaymentPlanId();
         lblPaymentPlanId.setText(nextPaymentPalnId);
     }
     private void refreshPage() throws SQLException, ClassNotFoundException {
@@ -88,7 +89,7 @@ public class PaymentPlanController implements Initializable {
                 description,
                 payId
         );
-        boolean isSaved = paymentPlanModel.savePaymentPlan(paymentPlanDto);
+        boolean isSaved = paymentPlanBO.savePaymentPlan(paymentPlanDto);
         if (isSaved) {
             loadNextPaymentPlanId();
             txtAmount.setText("");
@@ -120,7 +121,7 @@ public class PaymentPlanController implements Initializable {
                 description,
                 payId
         );
-        boolean isUpdated = paymentPlanModel.updatePaymentPlan(paymentPlanDto);
+        boolean isUpdated = paymentPlanBO.updatePaymentPlan(paymentPlanDto);
         if (isUpdated) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "PaymentPlan Updated").show();
@@ -137,7 +138,7 @@ public class PaymentPlanController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = paymentPlanModel.deletePaymentPlan(payPlanId);
+            boolean isDeleted = paymentPlanBO.deletePaymentPlan(payPlanId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "PaymentPlan deleted").show();
@@ -186,7 +187,7 @@ public class PaymentPlanController implements Initializable {
     }
 
     private void loadPayId() throws SQLException, ClassNotFoundException {
-        ArrayList<String> paymentId = paymentPlanModel.getAllPayId();
+        ArrayList<String> paymentId = paymentPlanBO.getAllPayId();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(paymentId);
         cmbPayId.setItems(observableList);

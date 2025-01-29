@@ -11,9 +11,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Window;
-import lk.ijse.gdse.finalproject.dto.StudentsDto;
-import lk.ijse.gdse.finalproject.dto.tm.StudentsTM;
-import lk.ijse.gdse.finalproject.model.StudentsModel;
+import lk.ijse.gdse.finalproject.bo.custom.StudentsBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.StudentsBOImpl;
+import lk.ijse.gdse.finalproject.model.StudentsDto;
+import lk.ijse.gdse.finalproject.model.tm.StudentsTM;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
@@ -65,10 +66,10 @@ public class StudentsController implements Initializable {
     public TextField txtName;
     public Button btnSendEmail;
     public TextField txtAdmin;
-    StudentsModel studentsModel = new StudentsModel();
+    StudentsBO studentsBO = new StudentsBOImpl();//loose coupling
 
     private void loadTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<StudentsDto> studentsDtos = studentsModel.getAllStudents();
+        ArrayList<StudentsDto> studentsDtos = studentsBO.getAllStudents();//loose coupling
         ObservableList<StudentsTM> studentsTMS = FXCollections.observableArrayList();
         for(StudentsDto studentsDto:studentsDtos){
             StudentsTM studentsTM=new StudentsTM();
@@ -78,7 +79,7 @@ public class StudentsController implements Initializable {
             studentsTM.setNic(studentsDto.getNic());
             studentsTM.setStudentAddress(studentsDto.getStudentAddress());
             studentsTM.setStudentRegisterDate(studentsDto.getStudentRegisterDate());
-            studentsTM.setGender(String.valueOf(studentsDto.getStudentRegisterDate()));
+            studentsTM.setGender(studentsDto.getGender());
             studentsTM.setAdvancePayment(studentsDto.getAdvancePayment());
             studentsTM.setHelpingAids(studentsDto.getHelpingAids());
             studentsTM.setPhoneNumber(studentsDto.getPhoneNumber());
@@ -121,7 +122,7 @@ public class StudentsController implements Initializable {
     }
 
     public void loadNextStudentId() throws SQLException, ClassNotFoundException {
-        String nextStudentId = studentsModel.getNextStuentId();
+        String nextStudentId = studentsBO.getNextStuentId();
         lblStudentId.setText(nextStudentId);
     }
 
@@ -158,7 +159,7 @@ public class StudentsController implements Initializable {
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
         if(optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
-            boolean isDeleted = studentsModel.deleteStudent(studentId);
+            boolean isDeleted = studentsBO.deleteStudent(studentId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Student deleted").show();
@@ -205,7 +206,7 @@ public class StudentsController implements Initializable {
                 vehicleId
         );
 
-        boolean isUpdated = studentsModel.updateStudent(studentsDto);
+        boolean isUpdated = studentsBO.updateStudent(studentsDto);
         if(isUpdated){
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Student Updated").show();
@@ -251,7 +252,7 @@ public class StudentsController implements Initializable {
                 vehicleId
         );
 
-        boolean isSaved = studentsModel.saveStudent(studentsDto);
+        boolean isSaved = studentsBO.saveStudent(studentsDto);
         if(isSaved){
             loadNextStudentId();
             txtName.setText("");

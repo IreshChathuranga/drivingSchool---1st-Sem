@@ -5,8 +5,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import lk.ijse.gdse.finalproject.dto.SettingDto;
-import lk.ijse.gdse.finalproject.model.SettingModel;
+import lk.ijse.gdse.finalproject.bo.custom.SettingBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.SettingBOImpl;
+import lk.ijse.gdse.finalproject.model.SettingDto;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class SettingController implements Initializable {
     public TextField txtAddress;
     public TextField txtPassword;
 
-    SettingModel settingModel = new SettingModel();
+    SettingBO settingBO = new SettingBOImpl();
     public void editOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String name = txtName.getText();
         String username = txtUserName.getText();
@@ -36,7 +37,7 @@ public class SettingController implements Initializable {
                 userPassword
         );
 
-        boolean isEdited = settingModel.editSignup(settingDto);
+        boolean isEdited = settingBO.editSignup(settingDto);
         if(isEdited){
             new Alert(Alert.AlertType.INFORMATION, "Singup edit").show();
         }else{
@@ -44,7 +45,7 @@ public class SettingController implements Initializable {
         }
     }
     private void loadSignupData() throws SQLException, ClassNotFoundException {
-        SettingDto settingDto = settingModel.getSignupDetails();
+        SettingDto settingDto = settingBO.getSignupDetails();
         if (settingDto != null) {
             txtName.setText(settingDto.getName());
             txtUserName.setText(settingDto.getUserName());

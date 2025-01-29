@@ -7,9 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.gdse.finalproject.dto.VehicleDto;
-import lk.ijse.gdse.finalproject.dto.tm.VehicleTM;
-import lk.ijse.gdse.finalproject.model.VehicleModel;
+import lk.ijse.gdse.finalproject.bo.custom.VehicleBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.VehicleBOImpl;
+import lk.ijse.gdse.finalproject.model.VehicleDto;
+import lk.ijse.gdse.finalproject.model.tm.VehicleTM;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -33,9 +34,9 @@ public class VehicleController implements Initializable {
     public Button btnDelete;
     public ComboBox<String> cmbType;
 
-    VehicleModel vehicleModel = new VehicleModel();
+    VehicleBO vehicleBO = new VehicleBOImpl();
     public void loadTableData() throws SQLException, ClassNotFoundException{
-        ArrayList<VehicleDto> vehicleDtos = vehicleModel.getAllVehicles();
+        ArrayList<VehicleDto> vehicleDtos = vehicleBO.getAllVehicles();
         ObservableList<VehicleTM> vehicleTMS = FXCollections.observableArrayList();
         for(VehicleDto vehicleDto:vehicleDtos){
             VehicleTM vehicleTM = new VehicleTM();
@@ -61,7 +62,7 @@ public class VehicleController implements Initializable {
                 adminId
         );
 
-        boolean isSave = vehicleModel.saveVehicle(vehicleDto);
+        boolean isSave = vehicleBO.saveVehicle(vehicleDto);
         if(isSave){
             loadNextVehicelId();
             cmbType.getSelectionModel().clearSelection();
@@ -87,7 +88,7 @@ public class VehicleController implements Initializable {
                 adminId
         );
 
-        boolean isUpdated = vehicleModel.updateVehicle(vehicleDto);
+        boolean isUpdated = vehicleBO.updateVehicle(vehicleDto);
         if(isUpdated){
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Vehicle Updated").show();
@@ -102,12 +103,14 @@ public class VehicleController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
-        if(optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES){
-            boolean isDeleted = vehicleModel.deleteVehicle(vehicleId);
-            refreshPage();
-            new Alert(Alert.AlertType.INFORMATION, "Vehicle deleted").show();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Fail to delete vehicle...!").show();
+        if(optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+            boolean isDeleted = vehicleBO.deleteVehicle(vehicleId);
+            if (isDeleted) {
+                refreshPage();
+                new Alert(Alert.AlertType.INFORMATION, "Vehicle deleted").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Fail to delete vehicle...!").show();
+            }
         }
     }
 
@@ -130,7 +133,7 @@ public class VehicleController implements Initializable {
     }
 
     public void loadNextVehicelId() throws SQLException, ClassNotFoundException {
-        String nextVehicelId = vehicleModel.getNextVehicleId();
+        String nextVehicelId = vehicleBO.getNextVehicleId();
         lblVehicelId.setText(nextVehicelId);
     }
     @Override
@@ -164,7 +167,7 @@ public class VehicleController implements Initializable {
     }
 
     private void loadVehicleType() throws SQLException, ClassNotFoundException {
-        ArrayList<String> vehicleType = vehicleModel.getAllVehicleType();
+        ArrayList<String> vehicleType = vehicleBO.getAllVehicleType();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(vehicleType);
         cmbType.setItems(observableList);

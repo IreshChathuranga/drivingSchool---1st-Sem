@@ -9,10 +9,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.gdse.finalproject.bo.custom.PaymentBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.PaymentBOImpl;
 import lk.ijse.gdse.finalproject.db.DBConnection;
-import lk.ijse.gdse.finalproject.dto.PaymentDto;
-import lk.ijse.gdse.finalproject.dto.tm.PaymentTM;
-import lk.ijse.gdse.finalproject.model.PaymentModel;
+import lk.ijse.gdse.finalproject.model.PaymentDto;
+import lk.ijse.gdse.finalproject.model.tm.PaymentTM;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -40,9 +41,9 @@ public class PaymentController implements Initializable {
     public TextField txtAdminId;
     public Button btnReceipt;
 
-    PaymentModel paymentModel = new PaymentModel();
+    PaymentBO paymentBO = new PaymentBOImpl();
     private void loadTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<PaymentDto> paymentDtos = paymentModel.getAllPayment();
+        ArrayList<PaymentDto> paymentDtos = paymentBO.getAllPayment();
         ObservableList<PaymentTM> paymentTMS = FXCollections.observableArrayList();
         for(PaymentDto paymentDto:paymentDtos){
             PaymentTM paymentTM=new PaymentTM();
@@ -73,7 +74,7 @@ public class PaymentController implements Initializable {
                 payMethod,
                 adminId
         );
-        boolean isSaved = paymentModel.savePayment(paymentDto);
+        boolean isSaved = paymentBO.savePayment(paymentDto);
         if (isSaved) {
             loadNextPaymentId();
             txtDate.setText("");
@@ -99,7 +100,7 @@ public class PaymentController implements Initializable {
                 payMethod,
                 adminId
         );
-        boolean isUpdated = paymentModel.updatePayment(paymentDto);
+        boolean isUpdated = paymentBO.updatePayment(paymentDto);
         if (isUpdated) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Payment Updated").show();
@@ -117,7 +118,7 @@ public class PaymentController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = paymentModel.deletePayment(payId);
+            boolean isDeleted = paymentBO.deletePayment(payId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Payment deleted").show();
@@ -143,7 +144,7 @@ public class PaymentController implements Initializable {
     }
 
     public void loadNextPaymentId() throws SQLException, ClassNotFoundException {
-        String nextPaymentId = paymentModel.getNextPaymentId();
+        String nextPaymentId = paymentBO.getNextPaymentId();
         lblPayId.setText(nextPaymentId);
     }
     private void refreshPage() throws SQLException, ClassNotFoundException {

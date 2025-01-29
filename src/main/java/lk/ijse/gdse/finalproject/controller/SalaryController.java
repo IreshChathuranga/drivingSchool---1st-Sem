@@ -7,9 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.gdse.finalproject.dto.SalaryDto;
-import lk.ijse.gdse.finalproject.dto.tm.SalaryTM;
-import lk.ijse.gdse.finalproject.model.SalaryModel;
+import lk.ijse.gdse.finalproject.bo.custom.SalaryBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.SalaryBOImpl;
+import lk.ijse.gdse.finalproject.model.SalaryDto;
+import lk.ijse.gdse.finalproject.model.tm.SalaryTM;
 
 import java.net.URL;
 import java.sql.Date;
@@ -39,9 +40,9 @@ public class SalaryController implements Initializable {
     public TextField txtAdminId;
     public TextField txtHolidays;
 
-    SalaryModel salaryModel = new SalaryModel();
+    SalaryBO salaryBO = new SalaryBOImpl();
     public void loadTableData() throws SQLException, ClassNotFoundException{
-        ArrayList<SalaryDto> salaryDtos = salaryModel.getAllSalary();
+        ArrayList<SalaryDto> salaryDtos = salaryBO.getAllSalary();
         ObservableList<SalaryTM> salaryTMS = FXCollections.observableArrayList();
         for(SalaryDto salaryDto:salaryDtos){
             SalaryTM salaryTM = new SalaryTM();
@@ -58,7 +59,7 @@ public class SalaryController implements Initializable {
     }
 
     public void loadNextSalaryId() throws SQLException, ClassNotFoundException {
-        String nextSalaryId = salaryModel.getNextSalaryId();
+        String nextSalaryId = salaryBO.getNextSalaryId();
         lblSalaryId.setText(nextSalaryId);
     }
     @Override
@@ -97,7 +98,7 @@ public class SalaryController implements Initializable {
                 adminId,
                 staffId
         );
-        boolean isSaved = salaryModel.saveSalary(salaryDto);
+        boolean isSaved = salaryBO.saveSalary(salaryDto);
         if (isSaved) {
             loadNextSalaryId();
             txtAmount.setText("");
@@ -132,7 +133,7 @@ public class SalaryController implements Initializable {
                 adminId,
                 staffId
         );
-        boolean isUpdated = salaryModel.updateSalary(salaryDto);
+        boolean isUpdated = salaryBO.updateSalary(salaryDto);
         if (isUpdated) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Salary Updated").show();
@@ -150,7 +151,7 @@ public class SalaryController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = salaryModel.deleteSalary(salaryId);
+            boolean isDeleted = salaryBO.deleteSalary(salaryId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Salary deleted").show();
