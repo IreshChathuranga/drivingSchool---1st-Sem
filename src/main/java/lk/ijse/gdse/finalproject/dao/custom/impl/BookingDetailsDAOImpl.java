@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.BookingDetailsDAO;
+import lk.ijse.gdse.finalproject.entity.BookingDetails;
 import lk.ijse.gdse.finalproject.model.BookingDetailsDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -9,24 +10,25 @@ import java.util.ArrayList;
 
 public class BookingDetailsDAOImpl implements BookingDetailsDAO {
     @Override
-public boolean saveBookingDetaileList(ArrayList<BookingDetailsDto> bookingDetailsDTOS) throws SQLException, ClassNotFoundException {
-    for (BookingDetailsDto bookingDetailsDTO : bookingDetailsDTOS) {
-        boolean isBookingDetailsSaved = save(bookingDetailsDTO);
-        if (!isBookingDetailsSaved) {
-            return false;
+    public boolean saveList(ArrayList<BookingDetails> bookingDetailsDTOS) throws SQLException, ClassNotFoundException {
+        for (BookingDetails bookingDetails : bookingDetailsDTOS) {
+            boolean isBookingDetailsSaved = save(bookingDetails);
+            if (!isBookingDetailsSaved) {
+                return false;
+            }
         }
-    }
-    return true;
+        return true;
 }
 
     @Override
-    public boolean save(BookingDetailsDto bookingDetailsDto) throws SQLException, ClassNotFoundException {
+    public boolean save(BookingDetails entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
                 "insert into booking_details values (?, ?)",
-                bookingDetailsDto.getBookId(),
-                bookingDetailsDto.getStudentId()
+                entity.getBookId(),
+                entity.getStudentId()
         );
     }
+
 
     @Override
     public String getNextId() throws SQLException, ClassNotFoundException {
@@ -34,7 +36,7 @@ public boolean saveBookingDetaileList(ArrayList<BookingDetailsDto> bookingDetail
     }
 
     @Override
-    public ArrayList<BookingDetailsDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<BookingDetails> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
     @Override
@@ -43,7 +45,7 @@ public boolean saveBookingDetaileList(ArrayList<BookingDetailsDto> bookingDetail
     }
 
     @Override
-    public boolean update(BookingDetailsDto dto) throws SQLException, ClassNotFoundException {
+    public boolean update(BookingDetails entity) throws SQLException, ClassNotFoundException {
         return false;
     }
 }

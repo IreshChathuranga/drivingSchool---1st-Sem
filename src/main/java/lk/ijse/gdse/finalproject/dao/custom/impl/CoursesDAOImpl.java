@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.CoursesDAO;
+import lk.ijse.gdse.finalproject.entity.Courses;
 import lk.ijse.gdse.finalproject.model.CoursesDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -23,11 +24,11 @@ public class CoursesDAOImpl implements CoursesDAO {
 
     }
     @Override
-    public ArrayList<CoursesDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Courses> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select * from course");
-        ArrayList<CoursesDto> coursesDtos = new ArrayList<>();
+        ArrayList<Courses> coursesDtos = new ArrayList<>();
         while (rst.next()){
-            CoursesDto coursesDto = new CoursesDto(
+            Courses coursesDto = new Courses(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3));
@@ -36,8 +37,8 @@ public class CoursesDAOImpl implements CoursesDAO {
         return coursesDtos;
     }
     @Override
-    public boolean save(CoursesDto coursesDto) throws SQLException, ClassNotFoundException {
-        Boolean isSaved=CrudUtil.execute("insert into course values(?,?,?)", coursesDto.getCourseId(),coursesDto.getCourseName(),coursesDto.getAdminId());
+    public boolean save(Courses entity) throws SQLException, ClassNotFoundException {
+        Boolean isSaved=CrudUtil.execute("insert into course values(?,?,?)", entity.getCourseId(),entity.getCourseName(),entity.getAdminId());
 
         return  isSaved;
     }
@@ -46,12 +47,29 @@ public class CoursesDAOImpl implements CoursesDAO {
         return CrudUtil.execute("delete from course where course_id=?", courseId);
     }
     @Override
-    public boolean update(CoursesDto coursesDto) throws SQLException, ClassNotFoundException {
+    public boolean update(Courses entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
                 "update course set  course_name=?, admin_id=? where course_id=?",
-                coursesDto.getCourseName(),
-                coursesDto.getAdminId(),
-                coursesDto.getCourseId()
+                entity.getCourseName(),
+                entity.getAdminId(),
+                entity.getCourseId()
         );
+    }
+
+    @Override
+    public boolean saveList(ArrayList<Courses> entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+    @Override
+    public ArrayList<String> getAllCourseIds() throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.execute("select course_id from course");
+
+        ArrayList<String> courseIds = new ArrayList<>();
+
+        while (rst.next()){
+            courseIds.add(rst.getString(1));
+        }
+
+        return courseIds;
     }
 }

@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.finalproject.bo.BOFactory;
 import lk.ijse.gdse.finalproject.bo.custom.CoursesBO;
 import lk.ijse.gdse.finalproject.bo.custom.impl.CoursesBOImpl;
 import lk.ijse.gdse.finalproject.model.CoursesDto;
@@ -29,7 +30,7 @@ public class CoursesController implements Initializable {
     public Button btnSave;
     public TextField txtAdmin;
     public TextField txtCourseName;
-    CoursesBO coursesBO = new CoursesBOImpl();
+    CoursesBO coursesBO = (CoursesBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.COURSES);
     public void loadTableData() throws SQLException, ClassNotFoundException{
         ArrayList<CoursesDto> coursesDtos = coursesBO.getAllCourse();
         ObservableList<CoursesTM> coursesTMS = FXCollections.observableArrayList();

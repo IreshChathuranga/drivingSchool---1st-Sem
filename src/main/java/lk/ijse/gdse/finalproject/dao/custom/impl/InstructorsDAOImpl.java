@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.InstructorsDAO;
+import lk.ijse.gdse.finalproject.entity.Instructors;
 import lk.ijse.gdse.finalproject.model.InstructorsDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -23,11 +24,11 @@ public class InstructorsDAOImpl implements InstructorsDAO {
 
     }
     @Override
-    public ArrayList<InstructorsDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Instructors> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select * from instructor");
-        ArrayList<InstructorsDto> instructorsDtos = new ArrayList<>();
+        ArrayList<Instructors> instructorsDtos = new ArrayList<>();
         while (rst.next()){
-            InstructorsDto instructorsDto =  new InstructorsDto(
+            Instructors instructorsDto =  new Instructors(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getInt(3),
@@ -39,8 +40,8 @@ public class InstructorsDAOImpl implements InstructorsDAO {
         return instructorsDtos;
     }
     @Override
-    public boolean save(InstructorsDto instructorsDto) throws SQLException, ClassNotFoundException {
-        Boolean isSaved=CrudUtil.execute("insert into instructor values(?,?,?,?,?,?)", instructorsDto.getInstructorId(),instructorsDto.getInstructorName(),instructorsDto.getInstructorAge(),instructorsDto.getInstructorAddress(),instructorsDto.getCertificationDetail(),instructorsDto.getAdminId());
+    public boolean save(Instructors entity) throws SQLException, ClassNotFoundException {
+        Boolean isSaved=CrudUtil.execute("insert into instructor values(?,?,?,?,?,?)", entity.getInstructorId(),entity.getInstructorName(),entity.getInstructorAge(),entity.getInstructorAddress(),entity.getCertificationDetail(),entity.getAdminId());
 
         return  isSaved;
     }
@@ -49,17 +50,23 @@ public class InstructorsDAOImpl implements InstructorsDAO {
         return CrudUtil.execute("delete from instructor where instru_id=?", instructorId);
     }
     @Override
-    public boolean update(InstructorsDto instructorsDto) throws SQLException, ClassNotFoundException {
+    public boolean update(Instructors entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
                 "update instructor set  instru_name=?, instru_age=?,  instru_address=?,  certification_detail=?, admin_id=? where instru_id=?",
-                instructorsDto.getInstructorName(),
-                instructorsDto.getInstructorAge(),
-                instructorsDto.getInstructorAddress(),
-                instructorsDto.getCertificationDetail(),
-                instructorsDto.getAdminId(),
-                instructorsDto.getInstructorId()
+                entity.getInstructorName(),
+                entity.getInstructorAge(),
+                entity.getInstructorAddress(),
+                entity.getCertificationDetail(),
+                entity.getAdminId(),
+                entity.getInstructorId()
         );
     }
+
+    @Override
+    public boolean saveList(ArrayList<Instructors> entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
     @Override
     public ArrayList<String> getAllInstructorIds() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select instru_id from instructor");

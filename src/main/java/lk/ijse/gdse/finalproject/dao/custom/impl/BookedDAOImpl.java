@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.BookedDAO;
+import lk.ijse.gdse.finalproject.entity.Booked;
 import lk.ijse.gdse.finalproject.model.BookedDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -10,11 +11,11 @@ import java.util.ArrayList;
 
 public class BookedDAOImpl implements BookedDAO {
     @Override
-    public ArrayList<BookedDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Booked> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select * from booking");
-        ArrayList<BookedDto> bookedDtos = new ArrayList<>();
+        ArrayList<Booked> bookedDtos = new ArrayList<>();
         while (rst.next()){
-            BookedDto bookedDto = new BookedDto(
+            Booked bookedDto = new Booked(
                     rst.getString(1),
                     rst.getDate(2),
                     rst.getString(3),
@@ -29,7 +30,7 @@ public class BookedDAOImpl implements BookedDAO {
     }
 
     @Override
-    public boolean save(BookedDto dto) throws SQLException, ClassNotFoundException {
+    public boolean save(Booked entity) throws SQLException, ClassNotFoundException {
         return false;
     }
 
@@ -39,7 +40,12 @@ public class BookedDAOImpl implements BookedDAO {
     }
 
     @Override
-    public boolean update(BookedDto dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Booked entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean saveList(ArrayList<Booked> entity) throws SQLException, ClassNotFoundException {
         return false;
     }
 }

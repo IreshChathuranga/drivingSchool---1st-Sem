@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.MaintainersDAO;
+import lk.ijse.gdse.finalproject.entity.Maintainers;
 import lk.ijse.gdse.finalproject.model.MaintainersDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -23,11 +24,11 @@ public class MaintainersDAOImpl implements MaintainersDAO {
 
     }
     @Override
-    public ArrayList<MaintainersDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Maintainers> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select * from maintainer");
-        ArrayList<MaintainersDto> maintainersDtos = new ArrayList<>();
+        ArrayList<Maintainers> maintainersDtos = new ArrayList<>();
         while (rst.next()){
-            MaintainersDto maintainersDto =  new MaintainersDto(
+            Maintainers maintainersDto =  new Maintainers(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),
@@ -37,8 +38,8 @@ public class MaintainersDAOImpl implements MaintainersDAO {
         return maintainersDtos;
     }
     @Override
-    public boolean save(MaintainersDto maintainersDto) throws SQLException, ClassNotFoundException {
-        Boolean isSaved = CrudUtil.execute("insert into maintainer values(?,?,?,?)",maintainersDto.getMaintainId(),maintainersDto.getMaintainName(),maintainersDto.getMaintainTask(),maintainersDto.getContactNumber());
+    public boolean save(Maintainers entity) throws SQLException, ClassNotFoundException {
+        Boolean isSaved = CrudUtil.execute("insert into maintainer values(?,?,?,?)",entity.getMaintainId(),entity.getMaintainName(),entity.getMaintainTask(),entity.getContactNumber());
         return isSaved;
     }
     @Override
@@ -46,13 +47,18 @@ public class MaintainersDAOImpl implements MaintainersDAO {
         return  CrudUtil.execute("delete from maintainer where maintain_id=?", maintainId);
     }
     @Override
-    public boolean update(MaintainersDto maintainersDto) throws SQLException, ClassNotFoundException {
+    public boolean update(Maintainers entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
                 "update maintainer set maintain_name=?, maintain_task=?,  contact_number=? where maintain_id=?",
-                maintainersDto.getMaintainName(),
-                maintainersDto.getMaintainTask(),
-                maintainersDto.getContactNumber(),
-                maintainersDto.getMaintainId()
+                entity.getMaintainName(),
+                entity.getMaintainTask(),
+                entity.getContactNumber(),
+                entity.getMaintainId()
         );
+    }
+
+    @Override
+    public boolean saveList(ArrayList<Maintainers> entity) throws SQLException, ClassNotFoundException {
+        return false;
     }
 }

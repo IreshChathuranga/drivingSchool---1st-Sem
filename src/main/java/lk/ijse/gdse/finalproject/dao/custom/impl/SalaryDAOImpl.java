@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.SalaryDAO;
+import lk.ijse.gdse.finalproject.entity.Salary;
 import lk.ijse.gdse.finalproject.model.SalaryDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -23,11 +24,11 @@ public class SalaryDAOImpl implements SalaryDAO {
 
     }
     @Override
-    public ArrayList<SalaryDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Salary> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select * from salary");
-        ArrayList<SalaryDto> salaryDtos = new ArrayList<>();
+        ArrayList<Salary> salaryDtos = new ArrayList<>();
         while (rst.next()){
-            SalaryDto salaryDto = new SalaryDto(
+            Salary salaryDto = new Salary(
                     rst.getString(1),
                     rst.getDouble(2),
                     rst.getDate(3),
@@ -40,8 +41,8 @@ public class SalaryDAOImpl implements SalaryDAO {
         return salaryDtos;
     }
     @Override
-    public boolean save(SalaryDto salaryDto) throws SQLException, ClassNotFoundException {
-        Boolean isSaved=CrudUtil.execute("insert into salary values(?,?,?,?,?,?,?)", salaryDto.getSalaryId(),salaryDto.getAmount(),salaryDto.getPayDay(),salaryDto.getHolidays(),salaryDto.getIsReceived(),salaryDto.getAdminId(),salaryDto.getStafId());
+    public boolean save(Salary entity) throws SQLException, ClassNotFoundException {
+        Boolean isSaved=CrudUtil.execute("insert into salary values(?,?,?,?,?,?,?)", entity.getSalaryId(),entity.getAmount(),entity.getPayDay(),entity.getHolidays(),entity.getIsReceived(),entity.getAdminId(),entity.getStafId());
 
         return  isSaved;
     }
@@ -50,16 +51,21 @@ public class SalaryDAOImpl implements SalaryDAO {
         return CrudUtil.execute("delete from salary where salary_id=?", salaryId);
     }
     @Override
-    public boolean update(SalaryDto salaryDto) throws SQLException, ClassNotFoundException {
+    public boolean update(Salary entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
                 "update salary set amount=?, pay_day=?, holidays=?, is_received=?, admin_id=?, staf_id=? where salary_id=?",
-                salaryDto.getAmount(),
-                salaryDto.getPayDay(),
-                salaryDto.getHolidays(),
-                salaryDto.getIsReceived(),
-                salaryDto.getAdminId(),
-                salaryDto.getStafId(),
-                salaryDto.getSalaryId()
+                entity.getAmount(),
+                entity.getPayDay(),
+                entity.getHolidays(),
+                entity.getIsReceived(),
+                entity.getAdminId(),
+                entity.getStafId(),
+                entity.getSalaryId()
         );
+    }
+
+    @Override
+    public boolean saveList(ArrayList<Salary> entity) throws SQLException, ClassNotFoundException {
+        return false;
     }
 }

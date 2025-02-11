@@ -9,6 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.gdse.finalproject.bo.BOFactory;
 import lk.ijse.gdse.finalproject.bo.custom.SigninBO;
 import lk.ijse.gdse.finalproject.bo.custom.impl.SigninBOImpl;
 import lk.ijse.gdse.finalproject.model.SigninDto;
@@ -56,7 +57,7 @@ public class SignController implements Initializable {
         AnchorPane load = FXMLLoader.load(getClass().getResource(fxmlpath));
         mainAnchor.getChildren().add(load);
     }
-    SigninBO signinBO = new SigninBOImpl();
+    SigninBO signinBO = (SigninBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SIGNIN);
 
     public void signinOnAction(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
         String name=txtName.getText();

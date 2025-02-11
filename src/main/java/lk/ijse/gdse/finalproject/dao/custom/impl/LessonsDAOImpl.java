@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.LessonsDAO;
+import lk.ijse.gdse.finalproject.entity.Lessons;
 import lk.ijse.gdse.finalproject.model.LessonsDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -16,11 +17,11 @@ public class LessonsDAOImpl implements LessonsDAO {
     }
 
     @Override
-    public ArrayList<LessonsDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Lessons> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select * from training_lesson");
-        ArrayList<LessonsDto> lessonsDtos = new ArrayList<>();
+        ArrayList<Lessons> lessonsDtos = new ArrayList<>();
         while (rst.next()){
-            LessonsDto lessonsDto = new LessonsDto(
+            Lessons lessonsDto = new Lessons(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),
@@ -29,8 +30,8 @@ public class LessonsDAOImpl implements LessonsDAO {
         }
         return lessonsDtos;
     }
-    public boolean save(LessonsDto lessonsDto) throws SQLException, ClassNotFoundException {
-        Boolean isSaved=CrudUtil.execute("insert into training_lesson values(?,?,?,?)", lessonsDto.getLessonName(),lessonsDto.getTimePeriod(),lessonsDto.getStudentId(),lessonsDto.getInstructorId());
+    public boolean save(Lessons entity) throws SQLException, ClassNotFoundException {
+        Boolean isSaved=CrudUtil.execute("insert into training_lesson values(?,?,?,?)", entity.getLessonName(),entity.getTimePeriod(),entity.getStudentId(),entity.getInstructorId());
 
         return  isSaved;
     }
@@ -39,15 +40,21 @@ public class LessonsDAOImpl implements LessonsDAO {
         return CrudUtil.execute("delete from training_lesson where less_name=?", lessonName);
     }
     @Override
-    public boolean update(LessonsDto lessonsDto) throws SQLException, ClassNotFoundException {
+    public boolean update(Lessons entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
                 "update training_lesson set time_period=?, stu_id=?, instruc_id=? where less_name=?",
-                lessonsDto.getTimePeriod(),
-                lessonsDto.getStudentId(),
-                lessonsDto.getInstructorId(),
-                lessonsDto.getLessonName()
+                entity.getTimePeriod(),
+                entity.getStudentId(),
+                entity.getInstructorId(),
+                entity.getLessonName()
         );
     }
+
+//    @Override
+//    public boolean saveList(ArrayList<LessonsDto> chooseTrainerDTOS) throws SQLException, ClassNotFoundException {
+//        return false;
+//    }
+
     @Override
     public ArrayList<String> getAlllesson() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select less_name from training_lesson");
@@ -61,22 +68,14 @@ public class LessonsDAOImpl implements LessonsDAO {
         return lessons;
     }
     @Override
-public boolean saveLessonList(ArrayList<LessonsDto> lessonsDTOS) throws SQLException, ClassNotFoundException {
-    for (LessonsDto lessonsDTO : lessonsDTOS) {
-        boolean isLessonSaved = saveLessons(lessonsDTO);
+public boolean saveList(ArrayList<Lessons> entity) throws SQLException, ClassNotFoundException {
+    for (Lessons lessons : entity) {
+        boolean isLessonSaved = save(lessons);
         if (!isLessonSaved) {
             return false;
         }
     }
     return true;
 }
-    @Override
 
-    public boolean saveLessons(LessonsDto lessonsDto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("insert into training_lesson values (?, ?, ?, ?)",
-                lessonsDto.getLessonName(),
-                lessonsDto.getTimePeriod(),
-                lessonsDto.getStudentId(),
-                lessonsDto.getInstructorId());
-    }
 }

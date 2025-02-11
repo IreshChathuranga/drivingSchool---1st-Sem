@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.finalproject.bo.BOFactory;
 import lk.ijse.gdse.finalproject.bo.custom.VehicleBO;
 import lk.ijse.gdse.finalproject.bo.custom.impl.VehicleBOImpl;
 import lk.ijse.gdse.finalproject.model.VehicleDto;
@@ -34,7 +35,7 @@ public class VehicleController implements Initializable {
     public Button btnDelete;
     public ComboBox<String> cmbType;
 
-    VehicleBO vehicleBO = new VehicleBOImpl();
+    VehicleBO vehicleBO = (VehicleBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.VEHICLE);
     public void loadTableData() throws SQLException, ClassNotFoundException{
         ArrayList<VehicleDto> vehicleDtos = vehicleBO.getAllVehicles();
         ObservableList<VehicleTM> vehicleTMS = FXCollections.observableArrayList();

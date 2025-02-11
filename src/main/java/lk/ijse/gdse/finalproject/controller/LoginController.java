@@ -17,7 +17,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import lk.ijse.gdse.finalproject.bo.BOFactory;
+import lk.ijse.gdse.finalproject.bo.custom.LoginBO;
+import lk.ijse.gdse.finalproject.bo.custom.MaintainersBO;
+import lk.ijse.gdse.finalproject.bo.custom.impl.LoginBOImpl;
 import lk.ijse.gdse.finalproject.db.DBConnection;
+import lk.ijse.gdse.finalproject.model.SigninDto;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +30,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -45,6 +51,7 @@ public class LoginController implements Initializable {
     @FXML
     private TextField txtUserName;
 
+    LoginBO loginBO= (LoginBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.LOGIN);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -54,35 +61,63 @@ public class LoginController implements Initializable {
         String userName = txtUserName.getText();
         String userPassword = txtPassword.getText();
         try {
-            checkCredential(userName, userPassword);
+            checkCredential(new ArrayList<>());
         } catch (SQLException | IOException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, "OOPS! something went wrong").show();
         }
 
     }
+    private void checkCredential(ArrayList<SigninDto> signinDtos) throws SQLException, IOException, ClassNotFoundException {
+        try {
+            String userId = txtUserName.getText();
+            String password = txtPassword.getText();
 
-    private void checkCredential(String userName, String userPassword) throws SQLException, IOException, ClassNotFoundException {
-        String sql = "select username, userpassword from signup where username = ?";
-
-        Connection connection = DBConnection.getInstance().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setObject(1, userName);
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if(resultSet.next()) {
-            String dbPasssword = resultSet.getString(2);
-
-            if(dbPasssword.equals(userPassword)) {
-                navigateToTheDashboard();
+            signinDtos = loginBO.loadAdminData();
+            if (userId.isEmpty() && password.isEmpty()) {
+                new Alert(Alert.AlertType.INFORMATION, "Please fill all fields").show();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Password is incorrect!").show();
+                for (SigninDto signinDto : signinDtos) {
+                    if (signinDto.getUserName().equals(userId)) {
+                        if (signinDto.getUserPassword().equals(password)) {
+                            navigateToTheDashboard();
+                        } else {
+                            new Alert(Alert.AlertType.ERROR, "Password is incorrect!").show();
+                        }
+                    } else {
+                        new Alert(Alert.AlertType.INFORMATION, "username not found!").show();
+                    }
+                }
             }
-        } else {
-            new Alert(Alert.AlertType.INFORMATION, "username not found!").show();
+        } finally {
+            txtUserName.clear();
+            txtPassword.clear();
         }
-
-
     }
+
+
+
+
+        //        String sql = "select username, userpassword from signup where username = ?";
+//
+//        Connection connection = DBConnection.getInstance().getConnection();
+//        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//        preparedStatement.setObject(1, userName);
+//
+//        ResultSet resultSet = preparedStatement.executeQuery();
+//        if(resultSet.next()) {
+//            String dbPasssword = resultSet.getString(2);
+//
+//            if(dbPasssword.equals(userPassword)) {
+//                navigateToTheDashboard();
+//            } else {
+//                new Alert(Alert.AlertType.ERROR, "Password is incorrect!").show();
+//            }
+//        } else {
+//            new Alert(Alert.AlertType.INFORMATION, "username not found!").show();
+//        }
+
+
+
     private void navigateToTheDashboard() throws IOException {
         navigateTo("/view/HomePage.fxml");    }
 

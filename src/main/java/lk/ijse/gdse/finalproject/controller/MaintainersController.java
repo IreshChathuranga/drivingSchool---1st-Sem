@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.finalproject.bo.BOFactory;
 import lk.ijse.gdse.finalproject.bo.custom.MaintainersBO;
 import lk.ijse.gdse.finalproject.bo.custom.impl.MaintainersBOImpl;
 import lk.ijse.gdse.finalproject.model.MaintainersDto;
@@ -33,7 +34,7 @@ public class MaintainersController implements Initializable {
     public TableColumn<MaintainersTM,String> maintainTask;
     public TableColumn<MaintainersTM,Integer> contactNumber;
 
-    MaintainersBO maintainersBO = new MaintainersBOImpl();
+    MaintainersBO maintainersBO = (MaintainersBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.MAINTAINERS);
 
     private void loadTableData() throws SQLException, ClassNotFoundException {
         ArrayList<MaintainersDto> maintainersDtos = maintainersBO.getAllMaintainer();

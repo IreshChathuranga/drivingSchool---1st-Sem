@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.gdse.finalproject.bo.BOFactory;
 import lk.ijse.gdse.finalproject.bo.custom.BookingBO;
 import lk.ijse.gdse.finalproject.bo.custom.InstructorsBO;
 import lk.ijse.gdse.finalproject.bo.custom.LessonsBO;
@@ -14,9 +15,14 @@ import lk.ijse.gdse.finalproject.bo.custom.impl.BookingBOImpl;
 import lk.ijse.gdse.finalproject.bo.custom.impl.InstructorsBOImpl;
 import lk.ijse.gdse.finalproject.bo.custom.impl.LessonsBOImpl;
 import lk.ijse.gdse.finalproject.bo.custom.impl.StudentsBOImpl;
+import lk.ijse.gdse.finalproject.dao.DAOFactory;
+import lk.ijse.gdse.finalproject.dao.custom.BookedDAO;
 import lk.ijse.gdse.finalproject.dao.custom.impl.InstructorsDAOImpl;
 import lk.ijse.gdse.finalproject.dao.custom.impl.LessonsDAOImpl;
 import lk.ijse.gdse.finalproject.dao.custom.impl.StudentsDAOImpl;
+import lk.ijse.gdse.finalproject.entity.BookingDetails;
+import lk.ijse.gdse.finalproject.entity.ChooseTrainer;
+import lk.ijse.gdse.finalproject.entity.Lessons;
 import lk.ijse.gdse.finalproject.model.*;
 import lk.ijse.gdse.finalproject.model.tm.CartTM;
 
@@ -60,10 +66,10 @@ public class BookingController implements Initializable {
     public TableColumn<CartTM, String> timePeriod;
     public TableColumn<?, ?> action;
     public Button btnPlaceBooking;
-    InstructorsBO instructorsBO = new InstructorsBOImpl();
-    LessonsBO lessonsBO = new LessonsBOImpl();
-    StudentsBO studentsBO = new StudentsBOImpl();
-    BookingBO bookingBO = new BookingBOImpl();
+    InstructorsBO instructorsBO = (InstructorsBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.INSTRUCTORS);
+    LessonsBO lessonsBO = (LessonsBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.LESSONS);
+    StudentsBO studentsBO = (StudentsBO)  BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STUDENTS);
+    BookingBO bookingBO = (BookingBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.BOOKING);
     public void studentOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String selectedStudentId = cmbStudentId.getSelectionModel().getSelectedItem();
         StudentsDto studentsDto = studentsBO.findById(selectedStudentId);
@@ -211,19 +217,19 @@ public class BookingController implements Initializable {
         String timePeriod = txtTimePeriod.getText();
         String rescheduleReason = txtReason.getText();
 
-        ArrayList<BookingDetailsDto> bookingDetailsDTOS = new ArrayList<>();
+        ArrayList<BookingDetails> bookingDetailsDTOS = new ArrayList<>();
 
         for (CartTM cartTM : cartTMS) {
 
-            BookingDetailsDto bookingDetailsDTO = new BookingDetailsDto(
+            BookingDetails bookingDetailsDTO = new BookingDetails(
                     bookId,
                     cartTM.getStudentId()
             );
             bookingDetailsDTOS.add(bookingDetailsDTO);
         }
-        ArrayList<LessonsDto> lessonsDTOS = new ArrayList<>();
+        ArrayList<Lessons> lessonsDTOS = new ArrayList<>();
         for (CartTM cartTM : cartTMS){
-            LessonsDto lessonsDTO = new LessonsDto(
+            Lessons lessonsDTO = new Lessons(
                     cartTM.getLessonName(),
                     timePeriod,
                     cartTM.getStudentId(),
@@ -231,9 +237,9 @@ public class BookingController implements Initializable {
             );
             lessonsDTOS.add(lessonsDTO);
         }
-        ArrayList<ChooseTrainerDto> chooseTrainerDTOS = new ArrayList<>();
+        ArrayList<ChooseTrainer> chooseTrainerDTOS = new ArrayList<>();
         for(CartTM cartTM:cartTMS){
-            ChooseTrainerDto chooseTrainerDTO = new ChooseTrainerDto(
+            ChooseTrainer chooseTrainerDTO = new ChooseTrainer(
                     bookId,
                     cartTM.getInstructorId()
             );
@@ -249,7 +255,7 @@ public class BookingController implements Initializable {
                 chooseTrainerDTOS
         );
 
-        boolean isSaved = bookingBO.saveBooking(bookingDto);
+        boolean isSaved = bookingBO.savePlaceBooking(bookingDto);
         if (isSaved) {
             new Alert(Alert.AlertType.INFORMATION, "Booking saved..!").show();
             refreshPage();

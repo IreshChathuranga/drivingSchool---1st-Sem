@@ -1,9 +1,8 @@
 package lk.ijse.gdse.finalproject.dao.custom;
 
+import lk.ijse.gdse.finalproject.dao.CrudDAO;
+import lk.ijse.gdse.finalproject.entity.Signin;
 import lk.ijse.gdse.finalproject.model.SigninDto;
-import lk.ijse.gdse.finalproject.util.CrudUtil;
 
-import java.sql.SQLException;
-
-public interface SigninDAO extends CrudDAO<SigninDto>{
+public interface SigninDAO extends CrudDAO<Signin> {
 }

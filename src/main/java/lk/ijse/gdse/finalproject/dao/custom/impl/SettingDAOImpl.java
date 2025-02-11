@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.SettingDAO;
+import lk.ijse.gdse.finalproject.entity.Setting;
 import lk.ijse.gdse.finalproject.model.SettingDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -24,15 +25,20 @@ public class SettingDAOImpl implements SettingDAO {
         return null;
     }
     @Override
-    public boolean update(SettingDto settingDto) throws SQLException, ClassNotFoundException {
+    public boolean update(Setting entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
                 "update signup set user_name=?, contact_number=?,  user_address=?, userpassword=? where username=?",
-                settingDto.getName(),
-                settingDto.getContactNumber(),
-                settingDto.getAddress(),
-                settingDto.getPassword(),
-                settingDto.getUserName()
+                entity.getName(),
+                entity.getContactNumber(),
+                entity.getAddress(),
+                entity.getPassword(),
+                entity.getUserName()
         );
+    }
+
+    @Override
+    public boolean saveList(ArrayList<Setting> entity) throws SQLException, ClassNotFoundException {
+        return false;
     }
 
     @Override
@@ -41,12 +47,12 @@ public class SettingDAOImpl implements SettingDAO {
     }
 
     @Override
-    public ArrayList<SettingDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Setting> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public boolean save(SettingDto dto) throws SQLException, ClassNotFoundException {
+    public boolean save(Setting entity) throws SQLException, ClassNotFoundException {
         return false;
     }
 

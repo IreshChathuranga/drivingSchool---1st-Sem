@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.StudentsDAO;
+import lk.ijse.gdse.finalproject.entity.Students;
 import lk.ijse.gdse.finalproject.model.StudentsDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -23,11 +24,11 @@ public class StudentsDAOImpl implements StudentsDAO {
 
     }
     @Override
-        public ArrayList<StudentsDto> getAll() throws SQLException, ClassNotFoundException {
+        public ArrayList<Students> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select * from student");
-        ArrayList<StudentsDto> studentsDtos = new ArrayList<>();
+        ArrayList<Students> studentsDtos = new ArrayList<>();
         while (rst.next()){
-            StudentsDto studentsDto =  new StudentsDto(
+            Students studentsDto =  new Students(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getDate(3),
@@ -49,24 +50,24 @@ public class StudentsDAOImpl implements StudentsDAO {
         return studentsDtos;
     }
     @Override
-    public boolean save(StudentsDto studentsDto) throws SQLException, ClassNotFoundException {
+    public boolean save(Students entity) throws SQLException, ClassNotFoundException {
         Boolean isSaved = CrudUtil.execute("insert into student values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                studentsDto.getStudentId(),
-                studentsDto.getStudentName(),
-                studentsDto.getDob(),
-                studentsDto.getNic(),
-                studentsDto.getStudentAddress(),
-                studentsDto.getStudentRegisterDate(),
-                studentsDto.getGender(),
-                studentsDto.getAdvancePayment(),
-                studentsDto.getHelpingAids(),
-                studentsDto.getPhoneNumber(),
-                studentsDto.getEmail(),
-                studentsDto.getAdminId(),
-                studentsDto.getCourseId(),
-                studentsDto.getPaymentPlanId(),
-                studentsDto.getPaymentId(),
-                studentsDto.getVehicleId());
+                entity.getStudentId(),
+                entity.getStudentName(),
+                entity.getDob(),
+                entity.getNic(),
+                entity.getStudentAddress(),
+                entity.getStudentRegisterDate(),
+                entity.getGender(),
+                entity.getAdvancePayment(),
+                entity.getHelpingAids(),
+                entity.getPhoneNumber(),
+                entity.getEmail(),
+                entity.getAdminId(),
+                entity.getCourseId(),
+                entity.getPaymentPlanId(),
+                entity.getPaymentId(),
+                entity.getVehicleId());
         return isSaved;
     }
     @Override
@@ -74,24 +75,30 @@ public class StudentsDAOImpl implements StudentsDAO {
         return  CrudUtil.execute("delete from student where student_id=?", studentId);
     }
     @Override
-    public boolean update(StudentsDto studentsDto) throws SQLException, ClassNotFoundException {
+    public boolean update(Students entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
                 "update student set stu_name=?, DOB=?,  NIC=? ,stu_address=? ,register_date=? ,gender=? ,advance_payment=? ,helping_aids=? ,phone_number=? ,email=?, curs_id=? ,paymentPlan_id=? ,veh_id=? where student_id=?",
-                studentsDto.getStudentName(),
-                studentsDto.getDob(),
-                studentsDto.getNic(),
-                studentsDto.getStudentAddress(),
-                studentsDto.getStudentRegisterDate(),
-                studentsDto.getGender(),
-                studentsDto.getAdvancePayment(),
-                studentsDto.getHelpingAids(),
-                studentsDto.getPhoneNumber(),
-                studentsDto.getEmail(),
-                studentsDto.getCourseId(),
-                studentsDto.getPaymentPlanId(),
-                studentsDto.getVehicleId(),
-                studentsDto.getStudentId());
+                entity.getStudentName(),
+                entity.getDob(),
+                entity.getNic(),
+                entity.getStudentAddress(),
+                entity.getStudentRegisterDate(),
+                entity.getGender(),
+                entity.getAdvancePayment(),
+                entity.getHelpingAids(),
+                entity.getPhoneNumber(),
+                entity.getEmail(),
+                entity.getCourseId(),
+                entity.getPaymentPlanId(),
+                entity.getVehicleId(),
+                entity.getStudentId());
     }
+
+    @Override
+    public boolean saveList(ArrayList<Students> entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
     @Override
     public ArrayList<String> getAllStudentIds() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select student_id from student");
@@ -129,4 +136,5 @@ public class StudentsDAOImpl implements StudentsDAO {
         }
         return null;
     }
+
 }

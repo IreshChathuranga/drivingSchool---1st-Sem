@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.PaymentDAO;
+import lk.ijse.gdse.finalproject.entity.Payment;
 import lk.ijse.gdse.finalproject.model.PaymentDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -23,11 +24,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     }
     @Override
-    public ArrayList<PaymentDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Payment> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select * from payment");
-        ArrayList<PaymentDto> paymentDtos = new ArrayList<>();
+        ArrayList<Payment> paymentDtos = new ArrayList<>();
         while (rst.next()){
-            PaymentDto paymentDto =  new PaymentDto(
+            Payment paymentDto =  new Payment(
                     rst.getString(1),
                     rst.getDate(2),
                     rst.getString(3),
@@ -37,8 +38,8 @@ public class PaymentDAOImpl implements PaymentDAO {
         return paymentDtos;
     }
     @Override
-    public boolean save(PaymentDto paymentDto) throws SQLException, ClassNotFoundException {
-        Boolean isSaved=CrudUtil.execute("insert into payment values(?,?,?,?)", paymentDto.getPayId(),paymentDto.getPayDate(),paymentDto.getPayMethod(),paymentDto.getAdminId());
+    public boolean save(Payment entity) throws SQLException, ClassNotFoundException {
+        Boolean isSaved=CrudUtil.execute("insert into payment values(?,?,?,?)", entity.getPayId(),entity.getPayDate(),entity.getPayMethod(),entity.getAdminId());
 
         return  isSaved;
     }
@@ -47,13 +48,18 @@ public class PaymentDAOImpl implements PaymentDAO {
         return CrudUtil.execute("delete from payment where pay_id=?", payId);
     }
     @Override
-    public boolean update(PaymentDto paymentDto) throws SQLException, ClassNotFoundException {
+    public boolean update(Payment entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
                 "update payment set  pay_date=?, pay_method=?,  admin_id=? where pay_id=?",
-                paymentDto.getPayDate(),
-                paymentDto.getPayMethod(),
-                paymentDto.getAdminId(),
-                paymentDto.getPayId()
+                entity.getPayDate(),
+                entity.getPayMethod(),
+                entity.getAdminId(),
+                entity.getPayId()
         );
+    }
+
+    @Override
+    public boolean saveList(ArrayList<Payment> entity) throws SQLException, ClassNotFoundException {
+        return false;
     }
 }

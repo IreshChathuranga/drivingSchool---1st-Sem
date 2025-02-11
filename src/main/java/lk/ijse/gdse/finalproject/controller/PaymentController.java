@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.gdse.finalproject.bo.BOFactory;
 import lk.ijse.gdse.finalproject.bo.custom.PaymentBO;
 import lk.ijse.gdse.finalproject.bo.custom.impl.PaymentBOImpl;
 import lk.ijse.gdse.finalproject.db.DBConnection;
@@ -41,7 +42,7 @@ public class PaymentController implements Initializable {
     public TextField txtAdminId;
     public Button btnReceipt;
 
-    PaymentBO paymentBO = new PaymentBOImpl();
+    PaymentBO paymentBO = (PaymentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PAYMENT);
     private void loadTableData() throws SQLException, ClassNotFoundException {
         ArrayList<PaymentDto> paymentDtos = paymentBO.getAllPayment();
         ObservableList<PaymentTM> paymentTMS = FXCollections.observableArrayList();

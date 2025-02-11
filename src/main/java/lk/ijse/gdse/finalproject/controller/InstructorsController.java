@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
+import lk.ijse.gdse.finalproject.bo.BOFactory;
 import lk.ijse.gdse.finalproject.bo.custom.InstructorsBO;
 import lk.ijse.gdse.finalproject.bo.custom.impl.InstructorsBOImpl;
 import lk.ijse.gdse.finalproject.model.InstructorsDto;
@@ -43,7 +44,7 @@ public class InstructorsController implements Initializable {
     public Button btnUpdate;
     public Button btnSave;
     public Rectangle reInstructor;
-    InstructorsBO instructorsBO = new InstructorsBOImpl();
+    InstructorsBO instructorsBO = (InstructorsBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.INSTRUCTORS);
     private void loadTableData() throws SQLException, ClassNotFoundException {
         ArrayList<InstructorsDto> instructorsDtos = instructorsBO.getAllInstructors();
         ObservableList<InstructorsTM> instructorsTMS = FXCollections.observableArrayList();
@@ -142,48 +143,6 @@ public class InstructorsController implements Initializable {
         String certificationDetail = txtCertification.getText();
         String adminId = txtAdminId.getText();
 
-//        String namePattern = "^[A-Za-z ]+$";
-//        String agePattern = "^[0-9]{1,2}$";
-//        String addressPattern ="^[A-Za-z ]+$";
-//        String certificationDetailPattern = "^[A-Za-z ]+$";
-//        String adminPattern = "^[A-Z]\\d{3}$";
-//
-//        boolean isValidName = instructorName.matches(namePattern);
-//        boolean isValidAge = String.valueOf(instructorAge).matches(agePattern) && instructorAge >= 18 && instructorAge <= 99;
-//        boolean isValidAddress = instructorAddress.matches(addressPattern);
-//        boolean isValidCertification = certificationDetail.matches(certificationDetailPattern);
-//        boolean isValidAdmin = adminId.matches(adminPattern);
-//
-//        if (!isValidName) {
-//            txtName.setStyle(txtName.getStyle() + ";-fx-border-color: #8a0b0b;");
-//            txtName.setStyle(txtName.getStyle() + ";-fx-border-radius: 40;");
-//            txtName.setStyle(txtName.getStyle() + ";-fx-border-width: 2;");
-//        }
-//
-//        if (!isValidAge) {
-//            txtAge.setStyle(txtAge.getStyle() + ";-fx-border-color: #8a0b0b;");
-//            txtAge.setStyle(txtAge.getStyle() + ";-fx-border-radius: 40;");
-//            txtAge.setStyle(txtAge.getStyle() + ";-fx-border-width: 2;");
-//        }
-//
-//        if (!isValidAddress) {
-//            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: #8a0b0b;");
-//            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-radius: 40;");
-//            txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-width: 2;");
-//        }
-//
-//        if (!isValidCertification) {
-//            txtCertification.setStyle(txtCertification.getStyle() + ";-fx-border-color: #8a0b0b;");
-//            txtCertification.setStyle(txtCertification.getStyle() + ";-fx-border-radius: 40;");
-//            txtCertification.setStyle(txtCertification.getStyle() + ";-fx-border-width: 2;");
-//        }
-//        if (!isValidAdmin) {
-//            txtAdminId.setStyle(txtAdminId.getStyle() + ";-fx-border-color: #8a0b0b;");
-//            txtAdminId.setStyle(txtAdminId.getStyle() + ";-fx-border-radius: 40;");
-//            txtAdminId.setStyle(txtAdminId.getStyle() + ";-fx-border-width: 2;");
-//        }
-
-//        if (isValidName && isValidAge && isValidAddress && isValidCertification && isValidAdmin) {
             InstructorsDto instructorsDto = new InstructorsDto(
                     instructorId,
                     instructorName,

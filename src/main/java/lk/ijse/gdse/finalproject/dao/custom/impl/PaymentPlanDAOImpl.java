@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.PaymentPlanDAO;
+import lk.ijse.gdse.finalproject.entity.PaymentPlan;
 import lk.ijse.gdse.finalproject.model.PaymentPlanDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -23,11 +24,11 @@ public class PaymentPlanDAOImpl implements PaymentPlanDAO {
 
     }
     @Override
-    public ArrayList<PaymentPlanDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<PaymentPlan> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select * from payment_plan");
-        ArrayList<PaymentPlanDto> paymentPlanDtos = new ArrayList<>();
+        ArrayList<PaymentPlan> paymentPlanDtos = new ArrayList<>();
         while (rst.next()){
-            PaymentPlanDto paymentPlanDto =  new PaymentPlanDto(
+            PaymentPlan paymentPlanDto =  new PaymentPlan(
                     rst.getString(1),
                     rst.getDouble(2),
                     rst.getInt(3),
@@ -39,8 +40,8 @@ public class PaymentPlanDAOImpl implements PaymentPlanDAO {
         return paymentPlanDtos;
     }
     @Override
-    public boolean save(PaymentPlanDto paymentPlanDto) throws SQLException, ClassNotFoundException {
-        Boolean isSaved=CrudUtil.execute("insert into payment_plan values(?,?,?,?,?,?)", paymentPlanDto.getPayplanId(),paymentPlanDto.getAmount(),paymentPlanDto.getRate(),paymentPlanDto.getRatePrice(),paymentPlanDto.getDescription(),paymentPlanDto.getPayId());
+    public boolean save(PaymentPlan entity) throws SQLException, ClassNotFoundException {
+        Boolean isSaved=CrudUtil.execute("insert into payment_plan values(?,?,?,?,?,?)", entity.getPayplanId(),entity.getAmount(),entity.getRate(),entity.getRatePrice(),entity.getDescription(),entity.getPayId());
 
         return  isSaved;
     }
@@ -49,17 +50,23 @@ public class PaymentPlanDAOImpl implements PaymentPlanDAO {
         return CrudUtil.execute("delete from payment_plan where payplan_id=?", payPlanId);
     }
     @Override
-    public boolean update(PaymentPlanDto paymentPlanDto) throws SQLException, ClassNotFoundException {
+    public boolean update(PaymentPlan entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
                 "update payment_plan set  amount=?, rate=?,  rate_price=?, description=?, payment_Id=? where payplan_id=?",
-                paymentPlanDto.getAmount(),
-                paymentPlanDto.getRate(),
-                paymentPlanDto.getRatePrice(),
-                paymentPlanDto.getDescription(),
-                paymentPlanDto.getPayId(),
-                paymentPlanDto.getPayplanId()
+                entity.getAmount(),
+                entity.getRate(),
+                entity.getRatePrice(),
+                entity.getDescription(),
+                entity.getPayId(),
+                entity.getPayplanId()
         );
     }
+
+    @Override
+    public boolean saveList(ArrayList<PaymentPlan> entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
     @Override
     public ArrayList<String> getAllPayId() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select pay_id from payment");
@@ -71,5 +78,17 @@ public class PaymentPlanDAOImpl implements PaymentPlanDAO {
         }
 
         return paymentId;
+    }
+    @Override
+    public ArrayList<String> loadPaymentPlanIds() throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.execute("select payplan_id from payment_plan");
+
+        ArrayList<String> paymentPlanId = new ArrayList<>();
+
+        while (rst.next()){
+            paymentPlanId.add(rst.getString(1));
+        }
+
+        return paymentPlanId;
     }
 }

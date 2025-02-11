@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.VehicleDAO;
+import lk.ijse.gdse.finalproject.entity.Vehicle;
 import lk.ijse.gdse.finalproject.model.VehicleDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -23,11 +24,11 @@ public class VehicleDAOImpl implements VehicleDAO {
 
     }
     @Override
-    public ArrayList<VehicleDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Vehicle> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select * from vehicle");
-        ArrayList<VehicleDto> vehicleDtos = new ArrayList<>();
+        ArrayList<Vehicle> vehicleDtos = new ArrayList<>();
         while (rst.next()){
-            VehicleDto vehicleDto = new VehicleDto(
+            Vehicle vehicleDto = new Vehicle(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getDouble(3),
@@ -37,9 +38,9 @@ public class VehicleDAOImpl implements VehicleDAO {
         return vehicleDtos;
     }
     @Override
-    public boolean save(VehicleDto vehicleDto) throws SQLException, ClassNotFoundException {
+    public boolean save(Vehicle entity) throws SQLException, ClassNotFoundException {
         Boolean isSaved = CrudUtil.execute("insert into vehicle values(?,?,?,?)",
-                vehicleDto.getVehicleId(),vehicleDto.getVehicleType(),vehicleDto.getLessonFee(),vehicleDto.getAdminId());
+                entity.getVehicleId(),entity.getVehicleType(),entity.getLessonFee(),entity.getAdminId());
         return isSaved;
     }
     @Override
@@ -47,15 +48,21 @@ public class VehicleDAOImpl implements VehicleDAO {
         return  CrudUtil.execute("delete from vehicle where vehi_id=?", vehicleId);
     }
     @Override
-    public boolean update(VehicleDto vehicleDto) throws SQLException, ClassNotFoundException {
+    public boolean update(Vehicle entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
                 "update vehicle set vehi_type=?, lesson_fee=?,  admin_id=? where vehi_id=?",
-                vehicleDto.getVehicleType(),
-                vehicleDto.getLessonFee(),
-                vehicleDto.getAdminId(),
-                vehicleDto.getVehicleId()
+                entity.getVehicleType(),
+                entity.getLessonFee(),
+                entity.getAdminId(),
+                entity.getVehicleId()
         );
     }
+
+    @Override
+    public boolean saveList(ArrayList<Vehicle> entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
     @Override
     public ArrayList<String> getAllVehicleType() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("select vehi_type from vehicle");
@@ -67,5 +74,18 @@ public class VehicleDAOImpl implements VehicleDAO {
         }
 
         return vehicleType;
+    }
+
+    @Override
+    public ArrayList<String> getAllVehicelIds() throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.execute("select vehi_id from vehicle");
+
+        ArrayList<String> vehicleId = new ArrayList<>();
+
+        while (rst.next()){
+            vehicleId.add(rst.getString(1));
+        }
+
+        return vehicleId;
     }
 }

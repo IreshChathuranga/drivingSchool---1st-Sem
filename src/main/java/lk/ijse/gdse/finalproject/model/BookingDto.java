@@ -1,5 +1,8 @@
 package lk.ijse.gdse.finalproject.model;
 
+import lk.ijse.gdse.finalproject.entity.BookingDetails;
+import lk.ijse.gdse.finalproject.entity.ChooseTrainer;
+import lk.ijse.gdse.finalproject.entity.Lessons;
 import lombok.*;
 
 import java.sql.Date;
@@ -15,7 +18,8 @@ public class BookingDto {
     private Date bookDate;
     private String bookTime;
     private String rescheduleReason;
-    private ArrayList<BookingDetailsDto> bookingDetailsDTOS;
-    private ArrayList<LessonsDto> lessonsDTOS;
-    private ArrayList<ChooseTrainerDto> chooseTrainerDTOS;
+    private ArrayList<BookingDetails> bookingDetailsDTOS;
+    private ArrayList<Lessons> lessonsDTOS;
+    private ArrayList<ChooseTrainer> chooseTrainerDTOS;
+
 }

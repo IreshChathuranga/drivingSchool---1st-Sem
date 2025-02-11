@@ -1,6 +1,7 @@
 package lk.ijse.gdse.finalproject.dao.custom.impl;
 
 import lk.ijse.gdse.finalproject.dao.custom.ChooseTrainerDAO;
+import lk.ijse.gdse.finalproject.entity.ChooseTrainer;
 import lk.ijse.gdse.finalproject.model.ChooseTrainerDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -9,9 +10,12 @@ import java.util.ArrayList;
 
 public class ChooseTrainerDAOImpl implements ChooseTrainerDAO {
     @Override
-    public boolean saveChooseTrainer(ArrayList<ChooseTrainerDto> chooseTrainerDTOS) throws SQLException, ClassNotFoundException {
-        for (ChooseTrainerDto chooseTrainerDTO : chooseTrainerDTOS) {
-            boolean isChooseTrainerSaved = save(chooseTrainerDTO);
+    public boolean saveList(ArrayList<ChooseTrainer> entity) throws SQLException, ClassNotFoundException {
+        for (ChooseTrainer chooseTrainer : entity) {
+//            ChooseTrainer chooseTrainer = new ChooseTrainer(
+//                    chooseTrainerDto.getBookId(),
+//                    chooseTrainerDto.getInstructorId());
+            boolean isChooseTrainerSaved = save(chooseTrainer);
             if (!isChooseTrainerSaved) {
                 return false;
             }
@@ -20,10 +24,10 @@ public class ChooseTrainerDAOImpl implements ChooseTrainerDAO {
     }
 
     @Override
-    public boolean save(ChooseTrainerDto chooseTrainerDto) throws SQLException, ClassNotFoundException {
+    public boolean save(ChooseTrainer entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into choose_trainer values (?, ?)",
-                chooseTrainerDto.getBookId(),
-                chooseTrainerDto.getInstructorId());
+                entity.getBookId(),
+                entity.getInstructorId());
     }
 
     @Override
@@ -32,7 +36,7 @@ public class ChooseTrainerDAOImpl implements ChooseTrainerDAO {
     }
 
     @Override
-    public ArrayList<ChooseTrainerDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<ChooseTrainer> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
 
@@ -42,7 +46,7 @@ public class ChooseTrainerDAOImpl implements ChooseTrainerDAO {
     }
 
     @Override
-    public boolean update(ChooseTrainerDto dto) throws SQLException, ClassNotFoundException {
+    public boolean update(ChooseTrainer entity) throws SQLException, ClassNotFoundException {
         return false;
     }
 }

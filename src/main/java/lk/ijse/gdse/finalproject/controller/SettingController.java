@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import lk.ijse.gdse.finalproject.bo.BOFactory;
 import lk.ijse.gdse.finalproject.bo.custom.SettingBO;
 import lk.ijse.gdse.finalproject.bo.custom.impl.SettingBOImpl;
 import lk.ijse.gdse.finalproject.model.SettingDto;
@@ -21,7 +22,7 @@ public class SettingController implements Initializable {
     public TextField txtAddress;
     public TextField txtPassword;
 
-    SettingBO settingBO = new SettingBOImpl();
+    SettingBO settingBO = (SettingBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SETTING);
     public void editOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String name = txtName.getText();
         String username = txtUserName.getText();

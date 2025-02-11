@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.finalproject.bo.BOFactory;
 import lk.ijse.gdse.finalproject.bo.custom.SalaryBO;
 import lk.ijse.gdse.finalproject.bo.custom.impl.SalaryBOImpl;
 import lk.ijse.gdse.finalproject.model.SalaryDto;
@@ -40,7 +41,7 @@ public class SalaryController implements Initializable {
     public TextField txtAdminId;
     public TextField txtHolidays;
 
-    SalaryBO salaryBO = new SalaryBOImpl();
+    SalaryBO salaryBO = (SalaryBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SALARY);
     public void loadTableData() throws SQLException, ClassNotFoundException{
         ArrayList<SalaryDto> salaryDtos = salaryBO.getAllSalary();
         ObservableList<SalaryTM> salaryTMS = FXCollections.observableArrayList();

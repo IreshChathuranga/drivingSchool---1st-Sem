@@ -11,7 +11,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Window;
-import lk.ijse.gdse.finalproject.bo.custom.StudentsBO;
+import lk.ijse.gdse.finalproject.bo.BOFactory;
+import lk.ijse.gdse.finalproject.bo.custom.*;
 import lk.ijse.gdse.finalproject.bo.custom.impl.StudentsBOImpl;
 import lk.ijse.gdse.finalproject.model.StudentsDto;
 import lk.ijse.gdse.finalproject.model.tm.StudentsTM;
@@ -66,7 +67,20 @@ public class StudentsController implements Initializable {
     public TextField txtName;
     public Button btnSendEmail;
     public TextField txtAdmin;
-    StudentsBO studentsBO = new StudentsBOImpl();//loose coupling
+
+    public ComboBox<String> cmbCourse;
+    public ComboBox<String> cmbPaymentId;
+    public ComboBox<String> cmbPaymentPlanId;
+    public ComboBox<String> cmbVehicelId;
+
+    StudentsBO studentsBO = (StudentsBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STUDENTS);//loose coupling
+    CoursesBO coursesBO = (CoursesBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.COURSES);
+
+    PaymentBO paymentBO = (PaymentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PAYMENT);
+
+    PaymentPlanBO paymentPlanBO = (PaymentPlanBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PAYMENT_PLAN);
+
+    VehicleBO vehicleBO = (VehicleBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.VEHICLE);
 
     private void loadTableData() throws SQLException, ClassNotFoundException {
         ArrayList<StudentsDto> studentsDtos = studentsBO.getAllStudents();//loose coupling
@@ -128,6 +142,10 @@ public class StudentsController implements Initializable {
 
     private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextStudentId();
+        loadCourseIds();
+        loadPaymentPlanIds();
+        loadPaymentIds();
+        loadVehicelIds();
         loadTableData();
 
         btnSave.setDisable(false);
@@ -146,10 +164,10 @@ public class StudentsController implements Initializable {
         txtNumber.setText("");
         txtEmail.setText("");
         txtAdmin.setText("");
-        txtCourseId.setText("");
-        txtPaymentPlanId.setText("");
-        txtPayment.setText("");
-        txtVehicelId.setText("");
+        cmbCourse.getSelectionModel().clearSelection();
+        cmbPaymentPlanId.getSelectionModel().clearSelection();
+        cmbPaymentId.getSelectionModel().clearSelection();
+        cmbVehicelId.getSelectionModel().clearSelection();
     }
 
     public void deleteOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
@@ -182,10 +200,10 @@ public class StudentsController implements Initializable {
         int phoneNumber = Integer.parseInt(txtNumber.getText());
         String email = txtEmail.getText();
         String adminId = txtAdmin.getText();
-        String courseId = txtCourseId.getText();
-        String paymentPlanId = txtPaymentPlanId.getText();
-        String paymentId = txtPayment.getText();
-        String vehicleId = txtVehicelId.getText();
+        String courseId = cmbCourse.getValue();
+        String paymentPlanId = cmbPaymentPlanId.getValue();
+        String paymentId = cmbPaymentId.getValue();
+        String vehicleId = cmbVehicelId.getValue();
 
         StudentsDto studentsDto = new StudentsDto(
                 studentId,
@@ -228,10 +246,10 @@ public class StudentsController implements Initializable {
         int phoneNumber = Integer.parseInt(txtNumber.getText());
         String email = txtEmail.getText();
         String adminId = txtAdmin.getText();
-        String courseId = txtCourseId.getText();
-        String paymentPlanId = txtPaymentPlanId.getText();
-        String paymentId = txtPayment.getText();
-        String vehicleId = txtVehicelId.getText();
+        String courseId = cmbCourse.getValue();
+        String paymentPlanId = cmbPaymentPlanId.getValue();
+        String paymentId = cmbPaymentId.getValue();
+        String vehicleId = cmbVehicelId.getValue();
 
         StudentsDto studentsDto = new StudentsDto(
                 studentId,
@@ -266,10 +284,10 @@ public class StudentsController implements Initializable {
             txtNumber.setText("");
             txtEmail.setText("");
             txtAdmin.setText("");
-            txtCourseId.setText("");
-            txtPaymentPlanId.setText("");
-            txtPayment.setText("");
-            txtVehicelId.setText("");
+            cmbCourse.getSelectionModel().clearSelection();
+            cmbPaymentPlanId.getSelectionModel().clearSelection();
+            cmbPaymentId.getSelectionModel().clearSelection();
+            cmbVehicelId.getSelectionModel().clearSelection();
             new Alert(Alert.AlertType.INFORMATION, "Student Saved").show();
             loadTableData();
         }else{
@@ -292,10 +310,10 @@ public class StudentsController implements Initializable {
             txtNumber.setText(String.valueOf(studentsTM.getPhoneNumber()));
             txtEmail.setText(studentsTM.getEmail());
             txtAdmin.setText(studentsTM.getAdminId());
-            txtCourseId.setText(studentsTM.getCourseId());
-            txtPaymentPlanId.setText(studentsTM.getPaymentPlanId());
-            txtPayment.setText(studentsTM.getPaymentId());
-            txtVehicelId.setText(studentsTM.getVehicleId());
+            cmbCourse.getSelectionModel().select(studentsTM.getCourseId());
+            cmbPaymentPlanId.getSelectionModel().select(studentsTM.getPaymentPlanId());
+            cmbPaymentId.getSelectionModel().select(studentsTM.getPaymentId());
+            cmbVehicelId.getSelectionModel().select(studentsTM.getVehicleId());
 
             btnSave.setDisable(true);
             btnUpdate.setDisable(false);
@@ -336,5 +354,32 @@ public class StudentsController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Fail to load ui..!");
             e.printStackTrace();
         }
+    }
+    private void loadCourseIds() throws SQLException, ClassNotFoundException {
+        ArrayList<String> courseId = coursesBO.getAllCourseIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.addAll(courseId);
+        cmbCourse.setItems(observableList);
+    }
+
+    private void loadPaymentPlanIds() throws SQLException, ClassNotFoundException {
+        ArrayList<String> paymentPlanId = paymentPlanBO.loadPaymentPlanIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.addAll(paymentPlanId);
+        cmbPaymentPlanId.setItems(observableList);
+    }
+
+    private void loadPaymentIds() throws SQLException, ClassNotFoundException {
+        ArrayList<String> paymentId = paymentPlanBO.loadPaymentIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.addAll(paymentId);
+        cmbPaymentId.setItems(observableList);
+    }
+
+    private void loadVehicelIds() throws SQLException, ClassNotFoundException {
+        ArrayList<String> vehicelId = vehicleBO.loadVehicelIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.addAll(vehicelId);
+        cmbVehicelId.setItems(observableList);
     }
 }

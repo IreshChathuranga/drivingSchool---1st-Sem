@@ -5,6 +5,7 @@ import lk.ijse.gdse.finalproject.dao.custom.BookingDetailsDAO;
 import lk.ijse.gdse.finalproject.dao.custom.ChooseTrainerDAO;
 import lk.ijse.gdse.finalproject.dao.custom.LessonsDAO;
 import lk.ijse.gdse.finalproject.db.DBConnection;
+import lk.ijse.gdse.finalproject.entity.Booking;
 import lk.ijse.gdse.finalproject.model.BookingDto;
 import lk.ijse.gdse.finalproject.util.CrudUtil;
 
@@ -18,36 +19,10 @@ public class BookingDAOImpl implements BookingDAO {
     private final LessonsDAO lessonsDAO= new LessonsDAOImpl();
     private final ChooseTrainerDAO chooseTrainerDAO = new ChooseTrainerDAOImpl();
     @Override
-    public boolean save(BookingDto bookingDto) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getInstance().getConnection();
-        try {
-            connection.setAutoCommit(false);
-            boolean isBookingSaved = CrudUtil.execute(
+    public boolean save(Booking entity) throws SQLException, ClassNotFoundException {
+            return CrudUtil.execute(
                     "insert into booking values (?, ?, ?, ?)",
-                    bookingDto.getBookId(), bookingDto.getBookDate(), bookingDto.getBookTime(), bookingDto.getRescheduleReason());
-
-            if (isBookingSaved) {
-                boolean isBookingDetailsSaved = bookingDetailsDAO.saveBookingDetaileList(bookingDto.getBookingDetailsDTOS());
-                if (isBookingDetailsSaved) {
-                    boolean isLessonsSaved = lessonsDAO.saveLessonList(bookingDto.getLessonsDTOS());
-                    if (isLessonsSaved) {
-                        boolean isChooseTrainerSaved =  chooseTrainerDAO.saveChooseTrainer(bookingDto.getChooseTrainerDTOS());
-                        if(isChooseTrainerSaved){
-                            connection.commit();
-                            return true;
-                        }
-                    }
-                }
-            }
-            connection.rollback();
-            return false;
-        } catch (SQLException e) {
-            connection.rollback();
-            e.printStackTrace();
-            return false;
-        } finally {
-            connection.setAutoCommit(true);
-        }
+                    entity.getBookId(), entity.getBookDate(), entity.getBookTime(), entity.getRescheduleReason());
     }
 
     @Override
@@ -70,11 +45,17 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
-    public boolean update(BookingDto dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Booking entity) throws SQLException, ClassNotFoundException {
         return false;
     }
+
     @Override
-    public ArrayList<BookingDto> getAll() throws SQLException, ClassNotFoundException {
+    public boolean saveList(ArrayList<Booking> entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public ArrayList<Booking> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
 }
